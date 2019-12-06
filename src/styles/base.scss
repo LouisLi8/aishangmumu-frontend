@@ -1,0 +1,339 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, font, img, ins, kbd, q, s, samp, small, strike,
+strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody,
+tfoot, thead, tr, th, td ,textarea,input { margin:0; padding:0; box-sizing: border-box; }
+// icon
+@font-face {
+  font-family: 'iconfont';  /* project id 1472110 */
+  src: url('//at.alicdn.com/t/font_1472110_u3dw9e82ejf.eot');
+  src: url('//at.alicdn.com/t/font_1472110_u3dw9e82ejf.eot?#iefix') format('embedded-opentype'),
+  url('//at.alicdn.com/t/font_1472110_u3dw9e82ejf.woff2') format('woff2'),
+  url('//at.alicdn.com/t/font_1472110_u3dw9e82ejf.woff') format('woff'),
+  url('//at.alicdn.com/t/font_1472110_u3dw9e82ejf.ttf') format('truetype'),
+  url('//at.alicdn.com/t/font_1472110_u3dw9e82ejf.svg#iconfont') format('svg');
+}
+html, body{
+  height: 100vh;
+}
+.iconfont {
+  display: inline-block;
+  font-family: "iconfont" !important;
+  color: #5AC7F6 !important;
+  // background: $BgLinearTobottom;
+  width: 24px;
+  text-align: center;
+  font-style: normal;
+//   -webkit-font-smoothing: antialiased;
+//   -webkit-text-stroke-width: 0.2px;
+//   -moz-osx-font-smoothing: grayscale;
+  margin-right: 5px;
+}
+.el-submenu__title{
+  .iconfont {
+    font-size: 16px !important;
+  }
+}
+ul.el-menu{
+  // background: $BgLinearTobottom !important;
+  // background: none ;
+  li.el-menu-item{
+    // background: $BgLinearTobottom !important;
+  }
+}
+.el-menu.el-menu--popup.el-menu--popup-right-start{
+  // background: $BgLinearTobottom !important;
+}
+.el-menu-item{
+  .iconfont {
+    font-size: 14px !important;
+  }
+}
+.icon_zzqx:before{
+  content: '\e74c';
+}
+.icon_jg:before{
+  content: '\e608';
+}
+.icon_js:before{
+  content: '\e621';
+}
+.icon_qx:before{
+  content: '\e61d';
+}
+.icon_yh:before{
+  content: '\e633';
+}
+.icon_jcpz:before{
+  content: '\e68e';
+}
+.icon_zd:before{
+  content: '\e694';
+}
+.icon_yy:before{
+  content: '\e600';
+}
+.icon_fk:before{
+  content: '\e601';
+}
+.icon_yw:before{
+  content: '\ea2b';
+}
+.icon_pgpz:before{
+  content: '\e7cd';
+}
+.icon_pggz:before{
+  content: '\e65f';
+}
+.icon_pdgz:before{
+  content: '\e6e9';
+}
+.icon_pgjg:before{
+  content: '\e608';
+}
+#app {
+    // font-family: "PingFangSC,helvetica neue,hiragino sans gb,arial,microsoft yahei ui,microsoft yahei,simsun,sans-serif!important";
+    font-family: "PingFangSC","Helvetica";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #2c3e50;
+    height: 100vh;
+    // min-height: 600px;
+    -webkit-font-smoothing: antialiased;
+    font-size: 14px /* 14/16 */;
+    min-width: $minWidth;
+    overflow: hidden;
+}
+a,
+a:active,
+a:focus,
+a:hover,
+a:visited {text-decoration: none}
+input[type=password],
+input[type=text],
+textarea {
+    resize: none;
+    outline: 0;
+    -webkit-appearance: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    background: #fff
+}
+ul, ol { list-style: none; }
+:focus{ outline:none;}
+.clearfix{ clear: both; content: ""; display: block; overflow: hidden }
+.clear{clear: both;}
+.fl{ float: left; }
+.fr{ float: right; }
+.cursorPointer{
+  cursor: pointer;
+}
+.alignLeft{
+  text-align: left;
+}
+.alignRight{
+  text-align: right;
+}
+.paddingLeft20{
+  padding-left:20px;
+}
+.red{
+  color: red;
+}
+.green{
+  color: green;
+}
+.yellow{
+  color: yellow;
+}
+.orange{
+  color: orange;
+}
+.ZLightBlue{
+  color: #409EFF;
+}
+.paddingTB20{
+  padding: 20px 0;
+}
+.paddingB20{
+  padding: 20px 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+}
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/*
+* element-ui样式覆盖
+*/
+.el-scrollbar{
+  height: 100%;
+  .el-submenu{
+    .el-menu-item{
+      height: 35px;
+      line-height: 35px;
+    }
+  }
+  .el-scrollbar__wrap{
+    overflow: scroll;
+    overflow-x: hidden;
+  }
+  .el-select-dropdown__wrap.el-scrollbar__wrap{
+    overflow: scroll;
+  }
+}
+.el-cascader-menu{
+  padding-bottom: 10px ;
+  .el-cascader-node{
+    font-size: 13px;
+    height: 28px ;
+    line-height: 28px ;
+  }
+}
+.el-upload--text {
+  .el-upload-dragger {
+    width: 260px !important;
+    height: 140px !important;
+  }
+}
+
+.el-drawer__open {
+  height: calc(100vh - 120px) !important;
+  margin-top: 60px !important;
+  .el-drawer.rtl {
+    width: 400px !important;
+    .el-drawer__header{
+      margin-bottom: 0 !important;
+    }
+    .el-drawer__title{
+      font-size: 13px !important;
+    }
+    .demo-drawer__footer{
+      // padding-left: 20px;
+      position: absolute;
+      bottom: 6px;
+      height: 42px;
+      width: 100%;
+      padding-left: 12px;
+      box-sizing: border-box;
+      border-top: 1px solid #dcdfe6;
+      button {
+        margin-top: 7px;
+      }
+    }
+    .el-form{
+      .el-form-item__label{
+        font-size: 13px !important;
+      }
+      .el-form-item__content *{
+        font-size: 13px !important;
+      }
+      .el-input--small{
+        width: 250px;
+      }
+    }
+  }
+}
+.el-dialog__wrapper{
+  .el-drawer__container{
+      .el-drawer{
+        .el-drawer__body{
+          max-height: calc(100vh - 125px);
+          .el-scrollbar{
+            max-height: calc(100vh - 265px);
+            .el-scrollbar__wrap{
+              .el-scrollbar__view{
+                
+              }
+            }
+          }
+        }
+      }
+  }
+}
+.el-date-editor.el-input,.el-date-editor--daterange.el-input__inner{
+  width: auto !important;
+}
+/*
+* 优估前端样式规范
+*/
+[v-cloak] {
+  display:none !important;
+}
+.bgLinear {
+  background: linear-gradient(to right, #37BDF6 , #7996F8);
+}
+.APP_ORG_NAME {
+    // font-style: oblique;  //倾斜
+    color: #ffffff;
+    transition: all 1.5s ease;
+    cursor: pointer;
+}
+.APP_ORG_NAME:hover {
+  color: #fff;
+  animation: Glow 1.5s ease infinite alternate;
+
+}
+@keyframes Rotate {       //匀速流动
+  0%  {
+      transform:scale(.5)  rotate(0deg);
+  }
+  100% {
+      transform:scale(1)  rotate(360deg);
+  }
+}
+@keyframes stream {       //匀速流动
+  0%  {
+      background-position: 0 0;
+  }
+  100% {
+      background-position: -100% 0;
+  }
+}
+@keyframes Glow {
+  0% {
+      text-shadow: 0 0 10px #fff,
+                   0 0 20px #fff,
+                   0 0 30px #fff,
+                   0 0 40px #00a67c,
+                   0 0 70px #00a67c,
+                   0 0 80px #00a67c,
+                   0 0 100px #00a67c,
+                   0 0 150px #00a67c;
+  }
+  100% {
+      text-shadow: 0 0 5px #fff,
+                   0 0 10px #fff,
+                   0 0 15px #fff,
+                   0 0 20px #00a67c,
+                   0 0 35px #00a67c,
+                   0 0 40px #00a67c,
+                   0 0 50px #00a67c,
+                   0 0 75px #00a67c;
+  }
+}
+.el-button--small{
+  background: $BgLinearToRight !important;
+  color: #fff !important;
+  // font-size: 14px;
+  // height: 40px;
+}
+.ZextraLarge{
+  font-size: 20px;
+}
+.Zlarge{
+  font-size: 18px;
+}
+.Zmedium{
+  font-size: 18px;
+}
+.Zsmall{
+  font-size: 14px;
+}
+.ZextraSmall{
+  font-size: 13px;
+}
+.ZextraExtraSmall{
+  font-size: 12px;
+}

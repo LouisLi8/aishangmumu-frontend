@@ -1,14 +1,20 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-
+// homeSubView
+import homeChildren from "@/router/homeSubVIew/index";
+const originalPush: any = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location: any) {
+  return originalPush.call(this, location).catch((err: any) => err);
+};
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "home",
-    component: Home
+    component: Home,
+    children: homeChildren,
   },
   {
     path: "/about",
