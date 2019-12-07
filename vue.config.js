@@ -30,7 +30,7 @@ module.exports = {
     host: '0.0.0.0',
     proxy: {
       "/api/": {
-        target: "http://127.0.0.1:8080", //develop
+        target: "http://127.0.0.1:3000", //develop
         // target: "http://192.168.1.193:7300/mock/5dc919286d973526997cad2b", // 模拟环境
         // target: "http://192.168.8.16:18088", //li jie
         // target: "http://192.168.1.194:18088", //li xin piao

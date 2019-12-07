@@ -31,5 +31,6 @@ class CacheSession {
 		}
 	}
 }
+const cacheSession = new CacheSession();
+export default  cacheSession;
 
-export const cacheSession = new CacheSession();

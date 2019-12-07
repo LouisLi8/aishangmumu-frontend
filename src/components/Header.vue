@@ -4,9 +4,10 @@
             <el-row style="height:100%;" >
                 <el-col :span="6">
                     <div class="APP_ORG_LOGO" 
-                    style="width: 100%;height: 59px;text-align:left;" 
+                    style="width: 100%;height:59px;text-align:left;" 
                     >
                         <el-image
+                            style="width: 100%;height: 59px;max-width: 200px;"
                             @click.native="goHomePage"
                             :src="logoSrc"
                             fit="cover" />
@@ -50,7 +51,7 @@
                             >
                             <div class="personal">
                                 <p><i class="el-icon-s-tools"></i>账号设置</p>
-                                <p><i class="el-icon-remove"></i> 退出</p>
+                                <p @click="quit"><i class="el-icon-remove"></i> 退出</p>
                             </div>
                             <span slot="reference" style="cursor:pointer">
                                 苏州爱尚沐沐网络科技有限公司
@@ -67,7 +68,7 @@
 
 <script lang="ts">
 import { Component, Prop, Emit, Vue } from "vue-property-decorator";
-import { cacheSession } from '@/util/cacheSession';
+import cacheSession from '@/util/cacheSession';
 @Component({
     components: {
         // NavHeader
@@ -83,9 +84,10 @@ export default class Login extends Vue  {
     }
     
    
-    qiut() {
+    quit() {
         const self: any = this;
         // self.goLoginPage();
+        self.$router.push({path: '/login'});
     }
 }
 </script>
@@ -161,8 +163,10 @@ export default class Login extends Vue  {
         .logo {
             width: 100%;
             height: 100%;
-        }
+        } 
         .right {
+            text-align: right;
+            padding-right: 20px;
             .down-menu-splic {
                 // width:100px;
                 // height: 8px;
