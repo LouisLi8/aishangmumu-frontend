@@ -1,5 +1,5 @@
 
-const apiBaseUrl = 'api';
+const apiBaseUrl = '/api';
 const restColection = {
     register: 'api/v1/user/create',
     login: 'api/v1/user/login',

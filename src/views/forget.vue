@@ -10,23 +10,22 @@
                             <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
                         </el-form-item>
                         <el-form-item label="">
-                            <el-input v-model="user.password" type="password"  placeholder="请输入密码"></el-input>
+                            <el-input placeholder="请输入验证码" v-model="input2">
+                                <template slot="append">
+                                    <el-button>获取验证码</el-button>
+                                </template>
+                            </el-input>
                         </el-form-item>
-                        <div class="ant-form-item-control has-success">
-                            <span class="ant-form-item-children">
-                                <label for="" class="ant-checkbox-wrapper">
-                                    <el-checkbox v-model="saveEmail" :label="true">记住账号</el-checkbox>
-                                </label>
-                                <label for="" class="ant-checkbox-wrapper" style="margin-left:20px;">
-                                    <span class="link take-sigin-up" @click="forget">忘记密码</span>
-                                </label>
-                            </span>
-                        </div>
-                        <el-button class="submitBtn active" @click.native="submit">登录</el-button>
+                        <el-form-item label="">
+                            <el-input v-model="user.email" placeholder="请输入新密码"></el-input>
+                        </el-form-item>
+                        <el-form-item label="">
+                            <el-input v-model="user.email" placeholder="请确认新密码"></el-input>
+                        </el-form-item>
+                        <el-button class="submitBtn active" @click.native="submit">确认重置密码</el-button>
                         <div class="foot">
                             <span>还没有账号？</span>
-                            <span class="link take-sigin-up" @click="goRegister">马上注册</span>
-                            <!-- <a href="/register" class="link take-sigin-up">马上注册</a> -->
+                            <span class="link take-sigin-up" @click="goRegister">创建新账号</span>
                         </div>
                     </el-form>
               </div>

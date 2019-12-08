@@ -11,4 +11,15 @@ const login = (params: any) => {
         })
     })
 }
-export {login}
+const register = (params: any) => {
+    return new Promise((resolve: any, reject: any) => {
+        post(restColection.register, params).then((res: any) => {
+            if(res.code === 200) {
+                resolve(res);
+            } else {
+                console.warn(res);
+            }
+        })
+    })
+}
+export {login,register}

@@ -4,26 +4,34 @@
           <div class="signup">
               <div class="form">
                   <a class="aishang-logo"  href="/"></a>
-                    <el-form label-position="top" label-width="80px" :model="user">
-                        <!-- <p>账户信息</p> -->
-                        <el-form-item label="账户信息">
+                    <el-form label-position="top" ref="ruleForm"  label-width="80px">
+                        <el-form-item label="账户信息" required>
                             <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
                         </el-form-item>
                         <el-form-item label="">
-                            <el-input v-model="user.password"  placeholder="请输入密码"></el-input>
+                            <el-input v-model="user.password" type="password" placeholder="请输入密码"></el-input>
                         </el-form-item>
-                        <el-form-item label="账户类型">
-                            <el-radio v-model="user.category" label="1">直客</el-radio>
-                            <el-radio v-model="user.category" label="2">代理商</el-radio>
+                        <el-form-item label="账户类型" required>
+                             <el-radio-group v-model="user.category">
+                                <el-radio :label="1">直客</el-radio>
+                                <el-radio :label="2">代理商</el-radio>
+                            </el-radio-group>
                         </el-form-item>
-                        <el-form-item label="联系人信息">
+                        <el-form-item label="联系人信息" required>
                             <el-input v-model="user.company_name"  placeholder="请输入公司名称"></el-input>
                             <el-input v-model="user.real_name"  placeholder="联系人的真实姓名"></el-input>
                             <el-input v-model="user.phone"  placeholder="手机号码，真实有效"></el-input>
                         </el-form-item>
-                        <el-form-item label="是否有媒介联系人">
-                            <el-radio v-model="user.has_media_contact" :label="true">是</el-radio>
-                            <el-radio v-model="user.has_media_contact" :label="false">否</el-radio>
+                        <el-form-item label="是否有媒介联系人" required>
+                            <el-radio-group v-model="user.has_media_contact">
+                                <el-radio :label="true">是</el-radio>
+                                <el-radio :label="false">否</el-radio>
+                            </el-radio-group>
+                        </el-form-item>
+                        <el-form-item label="" >
+                            <el-input 
+                            v-show="user.has_media_contact"
+                            v-model="user.media_contact_phone" placeholder="请输入媒介联系人手机号码"></el-input>
                         </el-form-item>
                         <el-button class="submitBtn active" @click.native="submit">提交</el-button>
                         <div class="foot">
@@ -40,24 +48,78 @@
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Vue } from "vue-property-decorator";
-
+import {register} from "@/service/auth/login.service";
+import validate from "@/util/reg.check";
 @Component({
   components: {
 
   }
 })
 export default class Home extends Vue {
-  user: any = {};
-  created() {
-    // this.$router.push({path: '/homePage'});
-  }
-  submit() {
-      console.log('提交')
-  }
-  goLogin() {
-      const self: any = this;
-      self.$router.push({path: '/login'});
-  }
+    user: object = {
+        email: '',
+        password: '',
+        category: '',
+        company_name: '',
+        real_name: '',
+        phone: '',
+        has_media_contact: false,
+        media_contact_phone: '',
+    };
+    created() {
+        // this.$router.push({path: '/homePage'});
+    }
+    submit() {
+        const self: any = this;
+        const flag_e = validate.isNull(self.user.email) || !validate.isEmail(self.user.email);
+        const flag_pa = validate.isNull(self.user.password) || self.user.password.length < 6;
+        const flag_c = validate.isNull(self.user.company_name);
+        const flag_r = validate.isNull(self.user.real_name);
+        const flag_ph = validate.isNull(self.user.phone) || !validate.isPhone(self.user.phone);
+        const flag_h = validate.isNull(self.user.has_media_contact);
+        const flag_cp = validate.isNull(self.user.media_contact_phone);
+        if(flag_e) {
+            self.$message.error('邮箱必填，且必须为真实可用邮箱');return;
+        }
+        if(flag_pa) {
+            self.$message.error('密码不能少于6位');return;
+        }
+        if(flag_c) {
+            self.$message.error('公司名不能为空');return;
+        }
+        if(flag_r) {
+            self.$message.error('真实姓名不能为空');return;
+        }
+        if(flag_ph) {
+            self.$message.error('手机号邮箱必填,且必须为真实可用号');return;
+        }
+        if(flag_h) {
+            self.$message.error('媒介联系人必填');return;
+        }
+        if(!flag_cp) {
+            if(validate.isPhone(self.user.media_contact_phone)) {
+                register(self.user).then((res: any) => {
+                    self.$message.success("注册成功,请登录！");
+                    self.goLogin();
+                }).catch((err: any) => {
+                    console.log(err);
+                });
+            }else {
+                self.$message.error('媒介联系人手机号码格式错误');
+            }
+        }else {
+            register(self.user).then((res: any) => {
+                self.$message.success("注册成功,请登录！");
+                self.goLogin();
+            }).catch((err: any) => {
+                console.log(err);
+            });
+        }
+    }
+    goLogin() {
+        const self: any = this;
+        self.$router.push({path: '/login'});
+    }
 }
 </script>
 <style lang="scss" scoped>
