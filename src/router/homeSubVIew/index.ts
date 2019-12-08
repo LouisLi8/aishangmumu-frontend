@@ -7,6 +7,12 @@ const routes = [
       // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "homePage" */ "@/components/homeSubView/indexPage.vue")
+    },
+    {
+      path: "/myMedia",
+      name: "myMedia",
+      component: () =>
+        import(/* webpackChunkName: "myMedia" */ "@/components/homeSubView/trafficCooperation/myMedia.vue")
     }
   ];
 export default routes;

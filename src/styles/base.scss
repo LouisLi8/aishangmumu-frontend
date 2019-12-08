@@ -250,9 +250,9 @@ input[type=number]::-webkit-outer-spin-button {
       }
   }
 }
-.el-date-editor.el-input,.el-date-editor--daterange.el-input__inner{
-  width: auto !important;
-}
+// .el-date-editor.el-input,.el-date-editor--daterange.el-input__inner{
+//   width: auto !important;
+// }
 /*
 * 优估前端样式规范
 */
@@ -312,7 +312,7 @@ input[type=number]::-webkit-outer-spin-button {
   }
 }
 .el-button--small{
-  background: $BgLinearToRight !important;
+  background: #497FFF !important;
   color: #fff !important;
   // font-size: 14px;
   // height: 40px;
