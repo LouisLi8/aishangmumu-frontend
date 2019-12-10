@@ -70,9 +70,9 @@ service.interceptors.request.use(async (config: any) => {
             f: c
       })
     });
-  const token = await cacheSession.get("app_token");
+  const token = localStorage.getItem("app_token");
   if(token) {
-      config.headers.Authorization = 'Bearer ' + token;
+      config.headers.token = token;
     } else {
       // 对请求错误做些什么
       // const pathName: any = router.currentRoute.name;

@@ -4,10 +4,9 @@
 	  <el-container class="container">
 		  <!-- <el-main> -->
       <Menu class="menu"></Menu>
-			  <el-scrollbar>
+			  <el-scrollbar style="height: calc(100vh - 36px)">
           <router-view class="content"> </router-view>
 			  </el-scrollbar>
-		  <!-- </el-main> -->
 	  </el-container>
     <Footer></Footer>
   </div>
@@ -38,7 +37,7 @@ export default class Home extends Vue {
   }
   .content{
     width: calc(100vw - 200px);
-    height: calc(100vh - 60px);
+    // height: calc(100vh - 60px);
   }
   // .menu {
   //   width: 190px;

@@ -1,8 +1,8 @@
 import {restColection} from '@/config/config';
 import {get,post} from '@/service/remote.service';
-const login = (params: any) => {
+const medai_list = async () => {
     return new Promise((resolve: any, reject: any) => {
-        post(restColection.login, params).then((res: any) => {
+        get(restColection.media_list).then((res: any) => {
             if(res.code === 200) {
                 resolve(res.data);
             } else {
@@ -11,9 +11,9 @@ const login = (params: any) => {
         })
     })
 }
-const register = (params: any) => {
+const media_add = (params: any) => {
     return new Promise((resolve: any, reject: any) => {
-        post(restColection.register, params).then((res: any) => {
+        post(restColection.media_add, params).then((res: any) => {
             if(res.code === 200) {
                 resolve(res.data);
             } else {
@@ -22,4 +22,4 @@ const register = (params: any) => {
         })
     })
 }
-export {login,register}
+export {medai_list, media_add}

@@ -25,7 +25,7 @@
                 </template>
                 <div class="subMenu">
                     <!-- <el-menu-item index="2-1">我的子账号</el-menu-item> -->
-                    <el-menu-item index="2-1"  @click.native="$router.push({path: '/myMedia'})">我的媒体</el-menu-item>
+                    <el-menu-item index="2-1"  @click.native="$router.push({path: '/media'})">我的媒体</el-menu-item>
                     <el-menu-item index="2-2">我的广告位</el-menu-item>
                 </div>
             </el-submenu>

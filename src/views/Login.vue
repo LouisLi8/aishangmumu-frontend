@@ -68,7 +68,7 @@ export default class Home extends Vue {
         self.$message.error('密码必填');return;
     }
     login(self.user).then((res: any) => {
-        console.log(res);
+        localStorage.setItem("app_token", res.token)
         self.$router.push({path: '/'});
         if(self.saveEmail) {
             localStorage.setItem('email', self.user.email);

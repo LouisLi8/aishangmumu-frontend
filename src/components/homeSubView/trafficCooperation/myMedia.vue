@@ -2,7 +2,7 @@
     <div class="wrap">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item>流量合作</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/myMedia' }">我的媒体</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/media' }">我的媒体</el-breadcrumb-item>
         </el-breadcrumb>
         <el-row style="margin-top: 10px;">
             <el-col :span="19">
@@ -22,11 +22,19 @@
                     </el-input>
                      <el-button size="small" style="margin-left: 20px;">搜索</el-button>
             </el-col>
-            <el-col :span="5" style="text-align:right;">
-                <el-button size="small">新建媒体</el-button>
+            <el-col :span="5" style="text-align:right;cursor:pointer;">
+                <el-button size="small" @click="createMedia">新建媒体</el-button>
             </el-col>
         </el-row>
-        <div class="list"></div>
+        <div class="list">
+            <el-table :data="tableData">
+                <el-table-column prop="id" label="序号" ></el-table-column>
+                <el-table-column prop="media_name" label="媒体名称" ></el-table-column>
+                <el-table-column prop="media_type" label="系统平台" ></el-table-column>
+                <el-table-column prop="createdAt" label="创建时间" ></el-table-column>
+                <el-table-column prop="status_name"  label="状态"></el-table-column>
+            </el-table>
+        </div>
     </div>
 </template>
 
@@ -39,11 +47,23 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
 export default class Login extends Vue  {
     media_name: string = '';
     media_id: number|string = '';
+    tableData: [] = [];
     constructor() {
         super();
     }
     created() {
         const self: any = this;
+        const data = self.$store.dispatch("MEDIA_LIST").then((res: any) => {
+            self.tableData = res;
+        });
+    }
+    statusFormat(val: any) {
+        console.log(val)
+        // return val.
+    }
+    createMedia() {
+        const self: any = this;
+        self.$router.push({path:'/newMedia'})
     }
 }
 </script>

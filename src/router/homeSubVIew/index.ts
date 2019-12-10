@@ -9,10 +9,21 @@ const routes = [
         import(/* webpackChunkName: "homePage" */ "@/components/homeSubView/indexPage.vue")
     },
     {
-      path: "/myMedia",
-      name: "myMedia",
+      path: "/media",
+      name: "media",
       component: () =>
-        import(/* webpackChunkName: "myMedia" */ "@/components/homeSubView/trafficCooperation/myMedia.vue")
+        import(/* webpackChunkName: "media" */ "@/components/homeSubView/trafficCooperation/myMedia.vue"),
+    },
+    {
+      path: "/validmedia",
+      name: "validmedia",
+      component: () =>
+        import(/* webpackChunkName: "validmedia" */ "@/components/homeSubView/trafficCooperation/validmedia.vue"),
+    },
+    {
+      path: "/newMedia",
+      component: () =>
+    import(/* webpackChunkName: "newMedia" */ "@/components/homeSubView/trafficCooperation/newMedia.vue"),
     }
   ];
 export default routes;
