@@ -20,7 +20,7 @@
                         size="small"
                         v-model="media_id">
                     </el-input>
-                     <el-button size="small" style="margin-left: 20px;">搜索</el-button>
+                     <el-button size="small" style="margin-left: 20px;" @click="search">搜索</el-button>
             </el-col>
             <el-col :span="5" style="text-align:right;cursor:pointer;">
                 <el-button size="small" @click="createMedia">新建媒体</el-button>
@@ -53,13 +53,28 @@ export default class Login extends Vue  {
     }
     created() {
         const self: any = this;
-        const data = self.$store.dispatch("MEDIA_LIST").then((res: any) => {
+        self.$store.dispatch("MEDIA_LIST").then((res: any) => {
             self.tableData = res;
         });
     }
     statusFormat(val: any) {
         console.log(val)
         // return val.
+    }
+    search() {
+        const self: any = this;
+        if(self.media_name || self.media_id ) {
+            self.$store.dispatch("MEDIA_SEARCH",{
+                id: self.media_id,
+                media_name: self.media_name,
+            }).then((res: any) => {
+                self.tableData = res;
+            });
+        } else {
+            self.$store.dispatch("MEDIA_LIST").then((res: any) => {
+                self.tableData = res;
+            });
+        }
     }
     createMedia() {
         const self: any = this;

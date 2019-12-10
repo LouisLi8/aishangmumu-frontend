@@ -7,5 +7,6 @@ const restColection = {
     // 媒体
     media_list: 'api/v1/media/list',
     media_add: 'api/v1/media/create',
+    media_search: 'api/v1/media/search',
 }
 export {apiBaseUrl,restColection};

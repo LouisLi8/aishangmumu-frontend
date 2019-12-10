@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import {medai_list, media_add} from "@/service/trafficCooperation/media.service"
+import * as mediaService from "@/service/trafficCooperation/media.service"
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -40,10 +40,13 @@ export default new Vuex.Store({
   },
   actions: {
     async MEDIA_LIST({ commit }: any) {
-      return await medai_list();
+      return await mediaService.media_list();
+    },
+    async MEDIA_SEARCH({ commit }: any, params: any) {
+      return await mediaService.media_search(params);
     },
     async MEDIA_CREATE({ commit }: any, params: any) {
-      return await media_add(params);
+      return await mediaService.media_add(params);
     },
   },
   modules: {}
