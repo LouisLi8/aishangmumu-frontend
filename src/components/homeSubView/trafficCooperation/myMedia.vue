@@ -4,7 +4,7 @@
             <el-breadcrumb-item>流量合作</el-breadcrumb-item>
             <el-breadcrumb-item :to="{ path: '/media' }">我的媒体</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-row style="margin-top: 10px;">
+        <el-row style="margin: 30px 0;">
             <el-col :span="19">
                 媒体名称：
                     <el-input
@@ -27,13 +27,58 @@
             </el-col>
         </el-row>
         <div class="list">
-            <el-table :data="tableData">
-                <el-table-column prop="id" label="序号" ></el-table-column>
-                <el-table-column prop="media_name" label="媒体名称" ></el-table-column>
-                <el-table-column prop="media_type" label="系统平台" ></el-table-column>
-                <el-table-column prop="createdAt" label="创建时间" ></el-table-column>
-                <el-table-column prop="status_name"  label="状态"></el-table-column>
-            </el-table>
+            <el-scrollbar style="height: 400px;">
+                <el-table :data="tableData" size="small" style="text-align:center" >
+                    <el-table-column prop="" label="媒体名称" >
+                        <template slot-scope="scope">
+                            {{scope.row.media_name}}
+                            <div >
+                                ID: {{scope.row.id}}
+                            </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="" label="系统平台/创建时间" >
+                        <template slot-scope="scope">
+                            {{scope.row.media_type}}
+                            <div >
+                                {{scope.row.createdAt.split('T')[0]}}
+                            </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="" label="状态" >
+                        <template slot-scope="scope">
+                            <div v-if="scope.row.status === 0">
+                                <span class="yellowIcon">{{scope.row.status_name}}</span>
+                            </div>
+                            <div v-if="scope.row.status === 1">
+                                <span class="greenIcon">{{scope.row.status_name}}</span>
+                            </div>
+                            <div v-if="scope.row.status === 2">
+                                <span class="redIcon">{{scope.row.status_name}}</span>
+                                <el-tooltip class="item" effect="dark" :content="'拒绝理由：'+scope.row.rejection_reason" placement="top">
+                                    <i class="el-icon-question" style="padding-left:5px;color:lightGray;font-size:14px;"></i>
+                                </el-tooltip>
+                            </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="" label="操作" >
+                        <template slot-scope="scope">
+                            <!-- 待验证可修改 -->
+                            <div v-if="scope.row.status === 0">
+                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">修改</span>
+                            </div>
+                            <!-- 正常可修改 -->
+                            <div v-if="scope.row.status === 1">
+                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">修改</span>
+                            </div>
+                            <!-- 拒绝之后重新提交 -->
+                            <div v-if="scope.row.status === 2">
+                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">重新提交</span>
+                            </div>
+                        </template>
+                    </el-table-column>
+                </el-table>
+            </el-scrollbar>
         </div>
     </div>
 </template>
@@ -60,6 +105,12 @@ export default class Login extends Vue  {
     statusFormat(val: any) {
         console.log(val)
         // return val.
+    }
+    goNewMedia(row: any) {
+        this.$router.push({
+            name: '/newMedia',
+            params: row
+        })
     }
     search() {
         const self: any = this;

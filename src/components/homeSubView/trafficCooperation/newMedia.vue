@@ -28,7 +28,7 @@
                     </el-select>
                 </el-form-item>
                 <el-form-item label="支持下载类广告" required>
-                    <el-radio-group v-model="ruleForm.support_dowload_ads">
+                    <el-radio-group v-model="ruleForm.support_download_ads">
                         <el-radio :label="true">支持</el-radio>
                         <el-radio :label="false">不支持</el-radio>
                     </el-radio-group>
@@ -86,6 +86,11 @@ export default class NewMedia extends Vue  {
     }
     created() {
         const self: any = this;
+        const row: any = self.$route.params;
+        console.log(row)
+        if(row.id) {
+            self.ruleForm = row;
+        }
     }
     submitForm(formName: any) {
         const self: any = this;

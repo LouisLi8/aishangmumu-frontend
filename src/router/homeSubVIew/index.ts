@@ -22,6 +22,7 @@ const routes = [
     },
     {
       path: "/newMedia",
+      name: "/newMedia",
       component: () =>
     import(/* webpackChunkName: "newMedia" */ "@/components/homeSubView/trafficCooperation/newMedia.vue"),
     }

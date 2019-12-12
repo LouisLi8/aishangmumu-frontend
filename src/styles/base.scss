@@ -88,8 +88,7 @@ ul.el-menu{
   content: '\e608';
 }
 #app {
-    // font-family: "PingFangSC,helvetica neue,hiragino sans gb,arial,microsoft yahei ui,microsoft yahei,simsun,sans-serif!important";
-    font-family: "PingFangSC","Helvetica";
+    font-family: 'Hiragino Sans GB', 'Microsoft YaHei', '\5FAE\8F6F\96C5\9ED1', 'Helvetica Neue', Helvetica, 'PingFang SC', Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     color: #2c3e50;
@@ -262,76 +261,45 @@ input[type=number]::-webkit-outer-spin-button {
 .bgLinear {
   background: linear-gradient(to right, #37BDF6 , #7996F8);
 }
-.APP_ORG_NAME {
-    // font-style: oblique;  //倾斜
-    color: #ffffff;
-    transition: all 1.5s ease;
-    cursor: pointer;
-}
-.APP_ORG_NAME:hover {
-  color: #fff;
-  animation: Glow 1.5s ease infinite alternate;
-
-}
-@keyframes Rotate {       //匀速流动
-  0%  {
-      transform:scale(.5)  rotate(0deg);
-  }
-  100% {
-      transform:scale(1)  rotate(360deg);
+.yellowIcon{
+  position: relative;
+  margin-left: 6px;
+  &::before{
+    position: absolute;
+    left: -12px;
+    top: 4px;
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: #e5e808 !important;
   }
 }
-@keyframes stream {       //匀速流动
-  0%  {
-      background-position: 0 0;
-  }
-  100% {
-      background-position: -100% 0;
-  }
-}
-@keyframes Glow {
-  0% {
-      text-shadow: 0 0 10px #fff,
-                   0 0 20px #fff,
-                   0 0 30px #fff,
-                   0 0 40px #00a67c,
-                   0 0 70px #00a67c,
-                   0 0 80px #00a67c,
-                   0 0 100px #00a67c,
-                   0 0 150px #00a67c;
-  }
-  100% {
-      text-shadow: 0 0 5px #fff,
-                   0 0 10px #fff,
-                   0 0 15px #fff,
-                   0 0 20px #00a67c,
-                   0 0 35px #00a67c,
-                   0 0 40px #00a67c,
-                   0 0 50px #00a67c,
-                   0 0 75px #00a67c;
+.redIcon{
+  position: relative;
+  margin-left: 6px;
+  &::before{
+    position: absolute;
+    left: -12px;
+    top: 4px;
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: #E83333 !important;
   }
 }
-.el-button--small{
-  background: #497FFF !important;
-  color: #fff !important;
-  // font-size: 14px;
-  // height: 40px;
-}
-.ZextraLarge{
-  font-size: 20px;
-}
-.Zlarge{
-  font-size: 18px;
-}
-.Zmedium{
-  font-size: 18px;
-}
-.Zsmall{
-  font-size: 14px;
-}
-.ZextraSmall{
-  font-size: 13px;
-}
-.ZextraExtraSmall{
-  font-size: 12px;
+.greenIcon{
+  position: relative;
+  margin-left: 6px;
+  &::before{
+    position: absolute;
+    left: -12px;
+    top: 4px;
+    content: '';
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+    background: #53C419 !important;
+  }
 }
