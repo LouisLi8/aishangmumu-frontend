@@ -27,7 +27,7 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class NewMedia extends Vue  {
-    tempMedia: any = this.$store.state.tempMedia;
+    tempMedia: any = this.$store.state.media.tempMedia;
     constructor() {
         super();
     }
@@ -36,7 +36,7 @@ export default class NewMedia extends Vue  {
     }
     submit() {
         const self: any = this;
-        self.tempMedia.preference_industry_id = self.tempMedia.preference_industry_id.join("");
+        self.tempMedia.preference_industry_id = self.tempMedia.preference_industry_id.join(",");
         self.$store.dispatch("MEDIA_CREATE", self.tempMedia).then((res: any) => {
             self.$router.replace({path: '/media'});
             self.$store.commit("updateTempMedia", null);

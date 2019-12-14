@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="login" v-show="showPage">
       <div class="content-container">
           <div class="signup">
               <div class="form">
@@ -38,6 +38,7 @@
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Vue } from "vue-property-decorator";
+import cacheSession from '@/util/cacheSession';
 import {login} from "@/service/auth/login.service";
 import validate from "@/util/reg.check";
 @Component({
@@ -49,17 +50,27 @@ export default class Home extends Vue {
       email: '',
       password: ''
   };
+  showPage: boolean = false;
   saveEmail: boolean = false;
   constructor(){
       super();
   }
   created() {
+    this.init();
+  }
+  async init() {
     const self: any = this;
-    const email = localStorage.getItem('email');
+    const userInfo = await self.$store.dispatch("getUserInfo");
+    if(userInfo && userInfo.email) {
+        // 有问题,每次刷新都回回到首页
+        self.$router.replace({path: '/homePage'})
+    } else {
+        self.showPage = true;
+    }
+    const email = await cacheSession.get('email');
     if(email) { self.user.email = email};
   }
-  submit() {
-    console.log('提交');
+   async submit() {
     const self: any = this;
     if(validate.isNull(self.user.email) || !validate.isEmail(self.user.email)) {
         self.$message.error('邮箱必填，且必须为真实可用邮箱');return;
@@ -67,17 +78,17 @@ export default class Home extends Vue {
     if(validate.isNull(self.user.password)) {
         self.$message.error('密码必填');return;
     }
-    login(self.user).then((res: any) => {
-        localStorage.setItem("app_token", res.token)
-        self.$router.push({path: '/'});
+    const userInfo: any = await login(self.user).catch((err: any) => {});
+    if(userInfo && userInfo.token) {
+        await cacheSession.set("app_token", userInfo.token);
+        await self.$store.commit("updateUserInfo", userInfo);
+        self.$router.push({path: '/homePage'})
         if(self.saveEmail) {
-            localStorage.setItem('email', self.user.email);
+            await cacheSession.set('email', self.user.email);
         } else {
-            localStorage.removeItem('email');
+            await cacheSession.remove('email');
         }
-    }).catch((err: any) => {
-        console.log(err);
-    });
+    }
   }
   goRegister() {
       const self: any = this;

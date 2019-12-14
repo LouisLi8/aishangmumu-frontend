@@ -54,7 +54,7 @@
                                 <p @click="quit"><i class="el-icon-remove"></i> 退出</p>
                             </div>
                             <span slot="reference" style="cursor:pointer">
-                                苏州爱尚沐沐网络科技有限公司
+                                {{userInfo.company_name}}
                                 <i class="el-icon-arrow-down"></i>
                             </span>
                         </el-popover>
@@ -76,11 +76,15 @@ import cacheSession from '@/util/cacheSession';
 })
 export default class Login extends Vue  {
     logoSrc: any = require('@/assets/logo/logoWithName.jpg');
+    userInfo: any = this.$store.state.user.userInfo
     constructor() {
         super();
     }
     created() {
         const self: any = this;
+        if(!self.$store.state.user.userInfo || !self.$store.state.user.userInfo.email) {
+            self.$router.push({path: '/login'});
+        }
     }
     
    

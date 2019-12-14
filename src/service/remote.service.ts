@@ -59,7 +59,6 @@ const removePending = (config: any) => {
  }
 }
 
-
 /* 全局添加拦截器作用是可以在每个api前面就加上headers的token验证 */
 /* 判断token是否存在和是否需要token验证的路由 */
 service.interceptors.request.use(async (config: any) => {
@@ -70,7 +69,7 @@ service.interceptors.request.use(async (config: any) => {
             f: c
       })
     });
-  const token = localStorage.getItem("app_token");
+  const token = await cacheSession.get("app_token");
   if(token) {
       config.headers.token = token;
     } else {

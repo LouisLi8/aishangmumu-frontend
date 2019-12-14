@@ -11,6 +11,17 @@ const media_list = async () => {
         })
     })
 }
+const media_revenue_list = async () => {
+    return new Promise((resolve: any, reject: any) => {
+        post(restColection.media_revenue_list).then((res: any) => {
+            if(res.code === 200) {
+                resolve(res.data);
+            } else {
+                console.warn(res);
+            }
+        })
+    })
+}
 const media_search = async (params: any) => {
     return new Promise((resolve: any, reject: any) => {
         post(restColection.media_search, params).then((res: any) => {
@@ -33,4 +44,4 @@ const media_add = (params: any) => {
         })
     })
 }
-export {media_list, media_add, media_search}
+export {media_list,media_revenue_list, media_add, media_search}

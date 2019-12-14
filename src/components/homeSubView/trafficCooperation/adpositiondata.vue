@@ -2,18 +2,18 @@
     <div class="wrap">
         <el-breadcrumb separator="/">
             <el-breadcrumb-item>流量合作</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/media' }">我的媒体</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/media' }">我的广告位</el-breadcrumb-item>
         </el-breadcrumb>
         <el-row style="margin: 30px 0;">
             <el-col :span="19">
-                媒体名称：
+                广告位名称：
                     <el-input
                         placeholder="请输入名称"
                         style="width:160px;margin-right:20px;"
                         size="small"
                         v-model="media_name">
                     </el-input>
-                    媒体ID：
+                    广告位ID：
                     <el-input
                         placeholder="请输入ID"
                         style="width:160px;"
@@ -23,7 +23,7 @@
                      <el-button size="small" style="margin-left: 20px;" @click="search">搜索</el-button>
             </el-col>
             <el-col :span="5" style="text-align:right;cursor:pointer;">
-                <el-button class="themeBtn" size="small" @click="createMedia">新建媒体</el-button>
+                <el-button class="themeBtn" size="small" @click="createAdposition">新建广告位</el-button>
             </el-col>
         </el-row>
         <div class="list">
@@ -98,7 +98,7 @@ export default class Login extends Vue  {
     }
     created() {
         const self: any = this;
-        self.$store.dispatch("MEDIA_LIST").then((res: any) => {
+        self.$store.dispatch("ADPOSITION_LIST").then((res: any) => {
             self.tableData = res;
         });
     }
@@ -127,9 +127,9 @@ export default class Login extends Vue  {
             });
         }
     }
-    createMedia() {
+    createAdposition() {
         const self: any = this;
-        self.$router.push({path:'/newMedia'})
+        self.$router.push({path:'/newadposition'})
     }
 }
 </script>

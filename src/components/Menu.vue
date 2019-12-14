@@ -26,7 +26,7 @@
                 <div class="subMenu">
                     <!-- <el-menu-item index="2-1">我的子账号</el-menu-item> -->
                     <el-menu-item index="2-1"  @click.native="$router.push({path: '/media'})">我的媒体</el-menu-item>
-                    <el-menu-item index="2-2">我的广告位</el-menu-item>
+                    <el-menu-item index="2-2" @click.native="$router.push({path: '/adpositiondata'})">我的广告位</el-menu-item>
                 </div>
             </el-submenu>
             <el-submenu index="3">
@@ -35,7 +35,7 @@
                     <span slot="title">数据收益</span>
                 </template>
                 <div class="subMenu">
-                    <el-menu-item index="3-1">媒体数据</el-menu-item>
+                    <el-menu-item index="3-1" @click.native="$router.push({path: '/mediadata'})">媒体数据</el-menu-item>
                     <el-menu-item index="3-2">广告位数据</el-menu-item>
                 </div>
             </el-submenu>

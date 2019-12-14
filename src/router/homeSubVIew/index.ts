@@ -25,6 +25,25 @@ const routes = [
       name: "/newMedia",
       component: () =>
     import(/* webpackChunkName: "newMedia" */ "@/components/homeSubView/trafficCooperation/newMedia.vue"),
-    }
+    },
+    {
+      path: "/adpositiondata",
+      name: "adpositiondata",
+      component: () =>
+        import(/* webpackChunkName: "adpositiondata" */ "@/components/homeSubView/trafficCooperation/adpositiondata.vue"),
+    },
+    {
+      path: "/newadposition",
+      name: "newadposition",
+      component: () =>
+        import(/* webpackChunkName: "newadposition" */ "@/components/homeSubView/trafficCooperation/newAdposition.vue"),
+    },
+    // 媒体收益
+    {
+      path: "/mediadata",
+      name: "mediadata",
+      component: () =>
+        import(/* webpackChunkName: "mediadata" */ "@/components/homeSubView/dataRevenue/mediadata.vue"),
+    },
   ];
 export default routes;

@@ -61,7 +61,7 @@
                 </el-form-item>
                 <el-button @click="submitForm('ruleForm')">下一步</el-button>
                 <!-- <el-button>保持</el-button> -->
-                <el-button>取消</el-button>
+                <el-button @click="$router.replace({path: '/media'})">取消</el-button>
             </el-form>
         </div>
     </div>
@@ -79,7 +79,7 @@ export default class NewMedia extends Vue  {
         preference_industry_id: [],
         support_dowload_ads: true,
     };
-    options: any = this.$store.state.preference_industry;
+    options: any = this.$store.state.media.preference_industry;
     rules: object = {};
     constructor() {
         super();
@@ -90,6 +90,7 @@ export default class NewMedia extends Vue  {
         console.log(row)
         if(row.id) {
             self.ruleForm = row;
+            self.ruleForm.preference_industry_id = row.preference_industry_id.split(",").map((id: string) => +id);
         }
     }
     submitForm(formName: any) {

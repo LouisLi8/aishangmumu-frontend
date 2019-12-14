@@ -1,10 +1,10 @@
 <template>
     <div class="wrap">
         <el-breadcrumb separator="/">
-            <el-breadcrumb-item>流量合作</el-breadcrumb-item>
-            <el-breadcrumb-item :to="{ path: '/media' }">我的媒体</el-breadcrumb-item>
+            <el-breadcrumb-item>数据收益</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/mediadata' }">媒体数据</el-breadcrumb-item>
         </el-breadcrumb>
-        <el-row style="margin: 30px 0;">
+        <!-- <el-row style="margin: 30px 0;">
             <el-col :span="19">
                 媒体名称：
                     <el-input
@@ -25,11 +25,11 @@
             <el-col :span="5" style="text-align:right;cursor:pointer;">
                 <el-button class="themeBtn" size="small" @click="createMedia">新建媒体</el-button>
             </el-col>
-        </el-row>
+        </el-row> -->
         <div class="list">
-            <el-scrollbar style="height: 400px;">
+            <el-scrollbar style="height: calc(100vh - 155px);">
                 <el-table :data="tableData" size="small" style="text-align:center" >
-                    <el-table-column prop="" label="媒体名称" >
+                    <el-table-column prop="" label="媒体ID/名称" fixed >
                         <template slot-scope="scope">
                             {{scope.row.media_name}}
                             <div >
@@ -45,38 +45,21 @@
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="" label="状态" >
+                    <el-table-column prop="ad_access_pv" label="广告位访问PV" sortable></el-table-column>
+                    <el-table-column prop="ad_access_uv" label="广告位访问UV" sortable></el-table-column>
+                    <el-table-column prop="earnings_per_uv" label="每UV收益" sortable fixed="right"></el-table-column>
+                    <el-table-column prop="estimated_revenue" label="预计收益" sortable fixed="right">
                         <template slot-scope="scope">
-                            <div v-if="scope.row.status === 0">
-                                <span class="yellowIcon">{{scope.row.status_name}}</span>
-                            </div>
-                            <div v-if="scope.row.status === 1">
-                                <span class="greenIcon">{{scope.row.status_name}}</span>
-                            </div>
-                            <div v-if="scope.row.status === 2">
-                                <span class="redIcon">{{scope.row.status_name}}</span>
-                                <el-tooltip class="item" effect="dark" :content="'拒绝理由：'+scope.row.rejection_reason" placement="top">
-                                    <i class="el-icon-question" style="padding-left:5px;color:lightGray;font-size:14px;"></i>
-                                </el-tooltip>
-                            </div>
+                            ￥ {{scope.row.estimated_revenue}}
                         </template>
                     </el-table-column>
-                    <el-table-column prop="" label="操作" >
+                    <!-- <el-table-column prop="" label="每日数据" >
                         <template slot-scope="scope">
-                            <!-- 待验证可修改 -->
-                            <div v-if="scope.row.status === 0">
-                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">修改</span>
-                            </div>
-                            <!-- 正常可修改 -->
-                            <div v-if="scope.row.status === 1">
-                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">修改</span>
-                            </div>
-                            <!-- 拒绝之后重新提交 -->
-                            <div v-if="scope.row.status === 2">
-                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">重新提交</span>
+                            <div>
+                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">查看</span>
                             </div>
                         </template>
-                    </el-table-column>
+                    </el-table-column> -->
                 </el-table>
             </el-scrollbar>
         </div>
@@ -98,7 +81,7 @@ export default class Login extends Vue  {
     }
     created() {
         const self: any = this;
-        self.$store.dispatch("MEDIA_LIST").then((res: any) => {
+        self.$store.dispatch("media_revenue_list").then((res: any) => {
             self.tableData = res;
         });
     }
@@ -114,18 +97,18 @@ export default class Login extends Vue  {
     }
     search() {
         const self: any = this;
-        if(self.media_name || self.media_id ) {
-            self.$store.dispatch("MEDIA_SEARCH",{
-                id: self.media_id,
-                media_name: self.media_name,
-            }).then((res: any) => {
-                self.tableData = res;
-            });
-        } else {
-            self.$store.dispatch("MEDIA_LIST").then((res: any) => {
-                self.tableData = res;
-            });
-        }
+        // if(self.media_name || self.media_id ) {
+        //     self.$store.dispatch("MEDIA_SEARCH",{
+        //         id: self.media_id,
+        //         media_name: self.media_name,
+        //     }).then((res: any) => {
+        //         self.tableData = res;
+        //     });
+        // } else {
+        //     self.$store.dispatch("MEDIA_LIST").then((res: any) => {
+        //         self.tableData = res;
+        //     });
+        // }
     }
     createMedia() {
         const self: any = this;
@@ -143,13 +126,8 @@ export default class Login extends Vue  {
     overflow-y: scroll;
     padding: 31px 40px 40px 40px;
     background: #fbfcfd;
-    .card{
-            background: #FFFFFF;
-            padding: 30px 32px;
-            overflow: hidden;
-            border-radius: 4px;
-            height: 140px;
-            box-shadow: 0px 2px 14px 0px #f0f7ff;
+    .list{
+            margin-top: 30px;
     }
 }
 </style>
