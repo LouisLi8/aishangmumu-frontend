@@ -7,7 +7,7 @@
         </el-breadcrumb>
         <div class="formWrap">
             <el-form :model="ruleForm" :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
-                <el-form-item label="媒体选择"  required>
+                <el-form-item label="媒体选择" required>
                    <el-select v-model="ruleForm.media_id" clearable placeholder="请选择">
                         <el-option
                         v-for="item in media_list"
@@ -39,25 +39,59 @@
                 </el-form-item>
                 <el-form-item label="素材类型"  required>
                     <el-radio-group v-model="radio">
-                        <el-radio :label="3">图片</el-radio>
-                        <el-radio :label="6">图文</el-radio>
-                        <el-radio :label="9">文字链</el-radio>
+                        <el-radio label="图片">图片</el-radio>
+                        <el-radio label="图文">图文</el-radio>
+                        <el-radio label="文字链">文字链</el-radio>
                     </el-radio-group>
-                    <div v-show="radio === 3">
-                        可用GIF
+                    <div v-show="radio === '图片'">
+                        <div class="sucaileixing">
+                            <span>可用GIF</span>
+                            <el-switch
+                            style="margin: 0 8px;"
+                            v-model="gif"
+                            active-color="#497FFF"
+                            inactive-color="#ff4949">
+                            </el-switch>
+                            <span>可用视频</span>
+                            <el-switch
+                            style="margin: 0 8px;"
+                            v-model="video"
+                            active-color="#13ce66"
+                            inactive-color="#a9b9c8">
+                            </el-switch>
+                        </div>
+                    </div>
+                    <div v-show="radio === '图文'">
+                        <div class="sucaileixing">
+                            <span>可用GIF</span>
+                            <el-switch
+                            style="margin: 0 8px;"
+                            v-model="gif"
+                            active-color="#497FFF"
+                            inactive-color="#a9b9c8">
+                            </el-switch>
+                        </div>
                     </div>
                 </el-form-item>
-                <el-form-item label="广告位规格"  required v-show="[3,6].includes(radio)">
+                <el-form-item label="广告位规格"  required v-show="['图文','图片'].includes(radio)">
                     <el-input v-model="ruleForm.website_domain_name" placeholder="请输入网站域名，如http://www.baidu.com"></el-input>
                 </el-form-item>
-                <el-button @click="submitForm('ruleForm')">提交</el-button>
-                <!-- <el-button>保持</el-button> -->
-                <el-button class="themeBtn" @click="$router.replace({path: '/media'})">取消</el-button>
+                <el-form-item >
+                    <el-button class="submit" @click="submitForm('ruleForm')">提交</el-button>
+                    <!-- <el-button>保持</el-button> -->
+                    <el-button class="themeBtn" @click="$router.replace({path: '/media'})">取消</el-button>
+                </el-form-item>
             </el-form>
         </div>
         <div class="pane-right">
             <div class="title">
                 广告位投放位置图例
+            </div>
+            <div class="preview">
+                <img src="../../../assets/img/iphone.png" alt="" class="mobile-content">
+            </div>
+            <div class="introduction">
+
             </div>
         </div>
     </div>
@@ -70,7 +104,9 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class NewMedia extends Vue  {
-    radio: any = "";
+    radio: any = "图片";
+    gif: boolean = true;
+    video: boolean = false;
     ruleForm: object = {
         media_type: 'H5',
         preference_industry_id: [],
@@ -108,14 +144,26 @@ export default class NewMedia extends Vue  {
     position: relative;
     .formWrap{
         width: 800px;
-        margin: 20px auto;
-        padding-bottom: 90px;
+        height: 100vh;
+        // margin: 20px auto;
+        padding: 21px;
         .el-button.active{
             color: #497FFF;
             border: 1px solid #497FFF;
         }
         .el-input{
             width: 550px;
+        }
+        .sucaileixing{
+                height: 60px;
+                line-height: 60px;
+                padding-left: 20px;
+                background: #F4F7F9;
+                position: relative;
+        }
+        .submit{
+            background: #a9b9c9;
+            color: #fff;
         }
     }
     .pane-right{
@@ -135,6 +183,22 @@ export default class NewMedia extends Vue  {
                 top: 100px;
                 left: 50%;
                 transform: translateX(-50%)
+            }
+            .preview{
+                position: absolute;
+                width: 185px;
+                height: 380px;
+                background: url(//yun.tuisnake.com/mami-media/img/iphone.png) no-repeat;
+                background-size: 100% 100%;
+                top: 134px;
+                left: 40px;
+                .mobile-content {
+                    position: absolute;
+                    top: 53px;
+                    left: 14px;
+                    width: 158px;
+                    height: 283px;
+                }
             }
     }
 }

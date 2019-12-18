@@ -255,6 +255,15 @@ input[type=number]::-webkit-outer-spin-button {
 /*
 * 优估前端样式规范
 */
+is_required::after {
+  font-family: SimSun;
+  font-size: 12px;
+  display: inline-block;
+  margin-right: 4px;
+  margin-left: 4px;
+  content: '*';
+  color: #f50;
+}
 [v-cloak] {
   display:none !important;
 }
