@@ -36,7 +36,7 @@
                 </template>
                 <div class="subMenu">
                     <el-menu-item index="3-1" @click.native="$router.push({path: '/mediadata'})">媒体数据</el-menu-item>
-                    <el-menu-item index="3-2">广告位数据</el-menu-item>
+                    <el-menu-item index="3-2" @click.native="$router.push({path: '/adRevenue'})">广告位数据</el-menu-item>
                 </div>
             </el-submenu>
             <el-submenu index="4">

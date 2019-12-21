@@ -29,20 +29,36 @@
         <div class="list">
             <el-scrollbar style="height: 400px;">
                 <el-table :data="tableData" size="small" style="text-align:center" >
-                    <el-table-column prop="" label="媒体名称" >
+                    <el-table-column prop="" label="广告位名称" >
                         <template slot-scope="scope">
-                            {{scope.row.media_name}}
+                            {{scope.row.name}}
                             <div >
                                 ID: {{scope.row.id}}
                             </div>
                         </template>
                     </el-table-column>
-                    <el-table-column prop="" label="系统平台/创建时间" >
+                    <el-table-column prop="" label="所属媒体" >
                         <template slot-scope="scope">
-                            {{scope.row.media_type}}
+                            {{scope.row.media_name}}
                             <div >
-                                {{scope.row.createdAt.split('T')[0]}}
+                               ID: {{scope.row.media_id}}
                             </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="" label="广告位规格" >
+                        <template slot-scope="scope">
+                            {{scope.row.delivery_type}}
+                            <div >
+                               {{scope.row.specifications}}
+                            </div>
+                        </template>
+                    </el-table-column>
+                    <el-table-column prop="" label="修改日期" >
+                        <template slot-scope="scope">
+                            {{scope.row.updatedAt.split("T")[0]}}
+                            <!-- <div >
+                               {{scope.row.specifications}}
+                            </div> -->
                         </template>
                     </el-table-column>
                     <el-table-column prop="" label="状态" >
@@ -108,7 +124,7 @@ export default class Login extends Vue  {
     }
     goNewMedia(row: any) {
         this.$router.push({
-            name: '/newMedia',
+            name: 'newadposition',
             params: row
         })
     }

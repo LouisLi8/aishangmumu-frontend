@@ -11,7 +11,9 @@ const restColection = {
     media_search: 'api/v1/media/search',
     // 广告位
     adposition_list: 'api/v1/adposition/list',
+    ad_revenue_list: 'api/v1/advertisingAssemble/list',
     adposition_add: 'api/v1/adposition/create',
     adposition_search: 'api/v1/adposition/search',
+    upload: 'api/v1/image/upload'
 }
 export {apiBaseUrl,restColection};

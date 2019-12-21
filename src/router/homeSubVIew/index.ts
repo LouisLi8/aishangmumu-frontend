@@ -45,5 +45,12 @@ const routes = [
       component: () =>
         import(/* webpackChunkName: "mediadata" */ "@/components/homeSubView/dataRevenue/mediadata.vue"),
     },
+    // 广告位收益
+    {
+      path: "/adRevenue",
+      name: "adRevenue",
+      component: () =>
+        import(/* webpackChunkName: "adRevenue" */ "@/components/homeSubView/dataRevenue/adRevenue.vue"),
+    },
   ];
 export default routes;
