@@ -2,9 +2,6 @@ const routes = [
     {
       path: "/homePage",
       name: "homePage",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: () =>
         import(/* webpackChunkName: "homePage" */ "@/components/homeSubView/indexPage.vue")
     },
@@ -51,6 +48,40 @@ const routes = [
       name: "adRevenue",
       component: () =>
         import(/* webpackChunkName: "adRevenue" */ "@/components/homeSubView/dataRevenue/adRevenue.vue"),
+    },
+    // 账户管理
+    {
+      path: "/account",
+      name: "account",
+      component: () =>
+        import(/* webpackChunkName: "account" */ "@/components/homeSubView/account/account.vue"),
+      children: [
+        {
+          path: "/account/basic",
+          name: "account/basic",
+          component: () =>
+            import(/* webpackChunkName: "account/basic" */ "@/components/homeSubView/account/basic.vue"),
+        },
+        {
+          path: "/account/accountfinance",
+          name: "account/accountfinance",
+          component: () =>
+            import(/* webpackChunkName: "account/accountfinance" */ "@/components/homeSubView/account/accountfinance.vue"),
+        },
+        {
+          path: "/account/agent",
+          name: "account/agent",
+          component: () =>
+            import(/* webpackChunkName: "account/agent" */ "@/components/homeSubView/account/agent.vue"),
+        },
+      ]
+    },
+    // 财务管理
+    {
+      path: "/finance",
+      name: "finance",
+      component: () =>
+        import(/* webpackChunkName: "finance" */ "@/components/homeSubView/finance/finance.vue"),
     },
   ];
 export default routes;
