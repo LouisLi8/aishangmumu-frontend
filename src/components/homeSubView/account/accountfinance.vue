@@ -20,7 +20,7 @@
                     <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
                 </li>
                 <li class="ant-form-basic-item">
-                    <span class="ant-form-basic-name">营业执照号</span>
+                    <span class="ant-form-basic-name" style="margin-left: 10px;">营业执照号</span>
                     <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
                 </li>
                 <li class="ant-form-basic-item">
