@@ -50,7 +50,7 @@
                             trigger="hover"
                             >
                             <div class="personal">
-                                <p><i class="el-icon-s-tools"></i>账号设置</p>
+                                <!-- <p><i class="el-icon-s-tools"></i>账号设置</p> -->
                                 <p @click="quit"><i class="el-icon-remove"></i> 退出</p>
                             </div>
                             <span slot="reference" style="cursor:pointer">

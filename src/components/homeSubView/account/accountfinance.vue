@@ -2,10 +2,11 @@
     <div class="basicWrap">
         <div class="ant-form-top-info">
             <div class="ant-form-basic-info">财务认证信息</div>
-            <ul>
+            <ul style="padding: 20px ;">
                 <li class="ant-form-basic-item">
                     <span class="ant-form-basic-name">审核状态</span>
-                    <span class="ant-form-basic-companyname">认证通过</span>
+                    <span class="ant-form-basic-companyname" style="color:#11b231">
+                        <i class="el-icon-success"></i> 认证通过</span>
                 </li>
                 <li class="ant-form-basic-item">
                     <span class="ant-form-basic-name">财务对象</span>
@@ -31,7 +32,7 @@
         </div>
         <div class="ant-form-top-info">
             <div class="ant-form-basic-info">开户认证信息</div>
-            <ul>
+            <ul style="padding: 20px ;">
                 <li class="ant-form-basic-item">
                     <span class="ant-form-basic-name">开户公司</span>
                     <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
@@ -41,7 +42,7 @@
                     <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
                 </li>
                 <li class="ant-form-basic-item">
-                    <span class="ant-form-basic-name">所在地</span>
+                    <span class="ant-form-basic-name" style="margin-left: 37px;">所在地</span>
                     <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
                 </li>
                 <li class="ant-form-basic-item">
@@ -53,7 +54,7 @@
                     <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
                 </li>
                 <li class="ant-form-basic-item">
-                    <span class="ant-form-basic-name">开户许可证</span>
+                    <span class="ant-form-basic-name" style="margin-left: 10px;">开户许可证</span>
                     <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
                 </li>
                 <li class="ant-form-basic-item">
@@ -78,11 +79,11 @@ export default class Basic extends Vue  {
 </script>
 <style lang="scss" scoped>
 .basicWrap{
-        margin: -6px 40px 40px 40px;
+    margin: -6px 40px 40px 40px;
     box-shadow: 0px 2px 14px 0px #f0f7ff;
     .ant-form-top-info{
             position: relative;
-            height: 254px;
+            height: 354px;
             border-bottom: 1px dashed #EAEBED;
             padding-top: 32px;
         .ant-form-basic-info{

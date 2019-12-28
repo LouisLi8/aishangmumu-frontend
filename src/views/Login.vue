@@ -10,7 +10,7 @@
                             <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
                         </el-form-item>
                         <el-form-item label="">
-                            <el-input v-model="user.password" type="password"  placeholder="请输入密码"></el-input>
+                            <el-input v-model="user.password" type="password"  placeholder="请输入密码"  @keyup.enter.native="submit"></el-input>
                         </el-form-item>
                         <div class="ant-form-item-control has-success">
                             <span class="ant-form-item-children">
@@ -60,13 +60,7 @@ export default class Home extends Vue {
   }
   async init() {
     const self: any = this;
-    const userInfo = await self.$store.dispatch("getUserInfo");
-    if(userInfo && userInfo.email) {
-        // 有问题,每次刷新都回回到首页
-        self.$router.replace({path: '/homePage'})
-    } else {
-        self.showPage = true;
-    }
+    self.showPage = true;
     const email = await cacheSession.get('email');
     if(email) { self.user.email = email};
   }
@@ -80,8 +74,9 @@ export default class Home extends Vue {
     }
     const userInfo: any = await login(self.user).catch((err: any) => {});
     if(userInfo && userInfo.token) {
-        await cacheSession.set("app_token", userInfo.token);
+        await self.$storage.set("app_token", userInfo.token);
         await self.$store.commit("updateUserInfo", userInfo);
+        await self.$storage.set("userInfo", userInfo);
         self.$router.push({path: '/homePage'})
         if(self.saveEmail) {
             await cacheSession.set('email', self.user.email);

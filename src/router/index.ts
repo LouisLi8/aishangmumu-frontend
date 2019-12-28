@@ -10,14 +10,14 @@ VueRouter.prototype.push = function push(location: any) {
 Vue.use(VueRouter);
 
 const routes = [
+  // {
+  //   path: "/",
+  //   name: "/",
+  //   redirect: '/home'
+  // },
   {
     path: "/",
     name: "/",
-    redirect: '/login'
-  },
-  {
-    path: "/home",
-    name: "home",
     component: Home,
     children: homeChildren,
   },

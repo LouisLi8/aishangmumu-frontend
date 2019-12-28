@@ -4,6 +4,7 @@ const restColection = {
     register: 'api/v1/user/create',
     login: 'api/v1/user/login',
     user_info: 'api/v1/user/info',
+    updateAgentInfo: 'api/v1/user/updateAgentInfo',
     // 媒体
     media_list: 'api/v1/media/list',
     media_revenue_list: 'api/v1/mediaRevenueAssemble/list',

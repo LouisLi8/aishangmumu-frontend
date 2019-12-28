@@ -45,8 +45,8 @@
                     <span slot="title">账号管理</span>
                 </template>
                 <div class="subMenu">
-                    <el-menu-item index="4-1" @click.native="$router.push({path: '/account'})">账户信息</el-menu-item>
-                    <el-menu-item index="4-2" @click.native="$router.push({path: '/finance'})">财务管理</el-menu-item>
+                    <el-menu-item index="4-1" @click.native="$router.push({path: '/account/basic'})">账户信息</el-menu-item>
+                    <!-- <el-menu-item index="4-2" @click.native="$router.push({path: '/finance'})">财务管理</el-menu-item> -->
                 </div>
             </el-submenu>
             <!-- <el-menu-item index="5">

@@ -1,4 +1,4 @@
-import {cacheUtil} from '@/util/cache';
+import cacheUtil from '@/util/cache';
 
 let organization_type = () => localStorage.getItem("organization_type");
 export default class Transfrom {

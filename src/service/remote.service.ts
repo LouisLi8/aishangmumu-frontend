@@ -69,7 +69,7 @@ service.interceptors.request.use(async (config: any) => {
             f: c
       })
     });
-  const token = await cacheSession.get("app_token");
+  const token = await app.$storage.get("app_token");
   if(token) {
       config.headers.token = token;
     } else {
