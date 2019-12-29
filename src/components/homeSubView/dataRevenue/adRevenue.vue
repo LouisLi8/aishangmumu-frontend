@@ -6,7 +6,7 @@
         </el-breadcrumb>
         <div class="list">
             <el-scrollbar style="height: calc(100vh - 155px);">
-                <el-table :data="tableData" size="small" style="text-align:center" >
+                <el-table :data="tableData" size="small" style="text-align:center" show-summary>
                     <el-table-column prop="" label="媒体ID/名称" fixed >
                         <template slot-scope="scope">
                             {{scope.row.media_name}}

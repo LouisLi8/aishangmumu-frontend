@@ -28,7 +28,10 @@
         </el-row> -->
         <div class="list">
             <el-scrollbar style="height: calc(100vh - 155px);">
-                <el-table :data="tableData" size="small" style="text-align:center" >
+                <el-table :data="tableData" size="small" show-summary style="text-align:center" >
+                    <!-- <el-table-column prop="" label="" fixed >
+                        总计
+                    </el-table-column> -->
                     <el-table-column prop="" label="媒体ID/名称" fixed >
                         <template slot-scope="scope">
                             {{scope.row.media_name}}
@@ -84,6 +87,17 @@ export default class Login extends Vue  {
         self.$store.dispatch("media_revenue_list").then((res: any) => {
             self.tableData = res;
         });
+    }
+    arraySpanMethod({ row, column, rowIndex, columnIndex } : any) {
+        if (rowIndex === 0) {
+            if (columnIndex === 0) {
+                    return [0, 0];
+            } else if (columnIndex === 1) {
+                    return [1, 3];
+            } else if (columnIndex === 2) {
+                    return [0, 0];
+            } 
+        }
     }
     statusFormat(val: any) {
         console.log(val)

@@ -82,9 +82,9 @@ export default class Login extends Vue  {
     }
     created() {
         const self: any = this;
-        if(!self.$store.state.user.userInfo || !self.$store.state.user.userInfo.email) {
-            self.$router.push({path: '/login'});
-        }
+        // if(!self.$store.state.user.userInfo || !self.$store.state.user.userInfo.email) {
+        //     self.$router.push({path: '/login'});
+        // }
     }
     
    
