@@ -53,7 +53,7 @@ const removePending = (config: any) => {
     if (!isFormData(config.data)) {
       pending[p].f(); // 执行取消操作
       pending.splice(p, 1);
-      console.warn(`短时间重复调用${config.url}多余请求被取消！！`);
+      // console.warn(`短时间重复调用${config.url}多余请求被取消！！`);
     }
   }
  }
@@ -74,10 +74,10 @@ service.interceptors.request.use(async (config: any) => {
       config.headers.token = token;
     } else {
       // 对请求错误做些什么
-      // const pathName: any = router.currentRoute.name;
-      // if(!['login', 'backPassword'].includes(pathName)) {
-      //   return Promise.reject();
-      // }
+      const pathName: any = router.currentRoute.name;
+      if(!['login', 'backPassword'].includes(pathName)) {
+        return Promise.reject();
+      }
     }
   return config;
 });

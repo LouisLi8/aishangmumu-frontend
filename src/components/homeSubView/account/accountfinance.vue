@@ -1,6 +1,6 @@
 <template>
     <div class="basicWrap">
-        <div class="ant-form-top-info">
+        <!-- <div class="ant-form-top-info">
             <div class="ant-form-basic-info">财务认证信息</div>
             <ul style="padding: 20px ;">
                 <li class="ant-form-basic-item">
@@ -10,7 +10,7 @@
                 </li>
                 <li class="ant-form-basic-item">
                     <span class="ant-form-basic-name">财务对象</span>
-                    <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
+                    <span class="ant-form-basic-companyname">{{finance.object}}</span>
                 </li>
                 <li class="ant-form-basic-item">
                     <span class="ant-form-basic-name">收款公司</span>
@@ -62,7 +62,7 @@
                     <span class="ant-form-basic-companyname">{{userInfo.company_name}}</span>
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </template>
 <script lang="ts">
@@ -72,8 +72,14 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class Basic extends Vue  {
-    get userInfo() {
-        return this.$store.state.user.userInfo
+    finance: any = {};
+    mounted() {
+        const self: any = this;
+        this.init();
+    }
+    async init() {
+        const self: any = this;
+        self.finance = await self.$store.dispatch("finance_info");
     }
 }
 </script>

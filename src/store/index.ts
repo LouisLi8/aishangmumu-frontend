@@ -5,11 +5,13 @@ import userStore from "./userStore"
 import mediaStore from './mediaStore';
 import adpositionStore from './adpositionStore';
 import commonStore from './commonStore';
+import financeStore from './financeStore';
 export default new Vuex.Store({
   modules: {
     media: mediaStore,
     adposition: adpositionStore,
     user: userStore,
-    common: commonStore
+    common: commonStore,
+    finance: financeStore
   }
 });

@@ -2,12 +2,12 @@
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
 module.exports = {
-  outputDir:
-    process.env.VUE_APP_TITLE === "production"
-      ? "dist_production"
-      : process.env.VUE_APP_TITLE === "alpha"
-      ? "dist_alpha"
-      : "dist_develop",
+  // outputDir:
+  //   process.env.VUE_APP_TITLE === "production"
+  //     ? "dist_production"
+  //     : process.env.VUE_APP_TITLE === "alpha"
+  //     ? "dist_alpha"
+  //     : "dist_develop",
   publicPath: process.env.NODE_ENV === "production" ? "/" : "/",
   filenameHashing: true,
   productionSourceMap: false,
