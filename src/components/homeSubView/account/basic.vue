@@ -42,7 +42,7 @@ export default class Basic extends Vue  {
 </script>
 <style lang="scss" scoped>
 .basicWrap{
-        margin: -6px 40px 40px 40px;
+        margin: 6px 40px 40px 40px;
     box-shadow: 0px 2px 14px 0px #f0f7ff;
     .ant-form-top-info{
             position: relative;
