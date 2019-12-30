@@ -15,6 +15,11 @@ export default {
       return await financeService.finance_info().catch((err: any) =>{
             console.error(err);
         });
+    },
+    async finance_create({ commit }: any, params: any) {
+      return await financeService.finance_create(params).catch((err: any) =>{
+            console.error(err);
+        });
     }
   }
 }

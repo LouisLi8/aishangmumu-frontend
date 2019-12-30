@@ -89,7 +89,7 @@ service.interceptors.response.use(async (response: any) => {
   if (response.status === 200) {
     if (response.data && response.data.code) {
       switch(response.data.code) {
-        case '401': await cacheSession.clear();
+        case 401: await cacheSession.clear();
                     // app.$message.error("401 登录过期或不合法！");
                     router.push({path: '/login'});
                     return Promise.reject();

@@ -11,9 +11,9 @@ const finance_info = async () => {
         })
     })
 }
-const finance_create = async () => {
+const finance_create = async (params: any) => {
     return new Promise((resolve: any, reject: any) => {
-        post(restColection.finance_create).then((res: any) => {
+        post(restColection.finance_create, params).then((res: any) => {
             if(res.code === 200) {
                 resolve(res.data);
             } else {
