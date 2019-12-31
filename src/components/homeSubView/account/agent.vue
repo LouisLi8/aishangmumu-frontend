@@ -5,7 +5,7 @@
                 <span class="com_name">签约主体：杭州推啊网络科技有限公司</span> <span class="status">未签署</span>
                 <br/>
                 <!-- <el-button >查看合同规范</el-button> -->
-                <a class="btn-download" href="~@/assets/file/agent.docx" download="爱尚盟卡合作加盟商业合同.docx">下载合同</a>
+                <a class="btn-download" href="http://api.jmaogou.com/public/file/agent.docx" download="爱尚盟卡合作加盟商业合同.docx">下载合同</a>
                 <ul class="contract-wrap-text">
                     <li>重要提示：</li>
                     <li>1.为保证结算效率，请尽快签署合同，我司收到贵司盖章的合同并确认无误后，贵司才能将收益提现；</li>
