@@ -35,8 +35,25 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class Basic extends Vue  {
-    get userInfo() {
-        return this.$store.state.user.userInfo
+    userInfo: any = {};
+    mounted() {
+        this.initUserInfo();
+    }
+    async initUserInfo() {
+        const self: any = this;
+        self.userInfo = await self.$storage.get('userInfo')
+    }
+    async updateAgentInfo() {
+        const self: any = this;
+        self.modifyInfo = false;
+        const res = await self.$store.dispatch('updateAgentInfo', {
+            agent_adress: self.userInfo.agent_adress,
+            agent_consignee:  self.userInfo.agent_consignee,
+            agent_tel:  self.userInfo.agent_tel,
+        });
+        if(res) {
+            self.userInfo = res;
+        }
     }
 }
 </script>
@@ -59,7 +76,7 @@ export default class Basic extends Vue  {
         }
         .ant-form-basic-item{
             position: relative;
-            margin-top: 30px;
+            margin-top: 20px;
             width: 100%;
             .ant-form-basic-name{
                 font-size: 14px;

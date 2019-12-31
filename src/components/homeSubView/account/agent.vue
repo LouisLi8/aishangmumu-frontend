@@ -2,7 +2,7 @@
     <div class="agentWrap">
         <el-scrollbar style="height:calc(100vh - 50px);">
             <div style="padding: 30px 0;margin: -6px 40px 40px 40px;border-bottom: 1px dashed #EAEBED;margin-bottom: 22px;">
-                <span class="com_name">签约主体：杭州推啊网络科技有限公司</span> <span class="status">未签署</span>
+                <span class="com_name">签约主体：苏州爱尚沐沐网络科技有限公司</span> <span class="status">未签署</span>
                 <br/>
                 <!-- <el-button >查看合同规范</el-button> -->
                 <a class="btn-download" href="http://api.jmaogou.com/public/file/爱尚盟卡合作加盟商业合同.docx" download="">下载合同</a>
@@ -11,7 +11,7 @@
                     <li>1.为保证结算效率，请尽快签署合同，我司收到贵司盖章的合同并确认无误后，贵司才能将收益提现；</li>
                     <li>2.签署合同请注意：</li>
                     <li>（1）按照已认证的公司名称、银行信息准确填写合同空白内容；</li>
-                    <li>（2）需签署3个主体，合同一式2份，合计6份合同；</li>
+                    <li>（2）合同一式2份，双方各执一份；</li>
                     <li>（3）请在“盖章”处盖合同专用章或公章、且需盖骑缝章（每合同共盖4个章）；</li>
                 </ul>
                 <div style="padding: 20px 0;">
