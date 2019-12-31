@@ -158,8 +158,9 @@ export const get = (url: string, params?: any, config?: Axios.AxiosRequestConfig
   return service.get( url, params, config).then((res: any) => res, (err: any) => errorHandler(err));
 };
 export const post = (url: string, data?: any, config?: Axios.AxiosRequestConfig | undefined): Axios.AxiosPromise<any> => {
-  return service.post( url, data, config).then((res: any) => res, (err: any) => errorHandler(err));
-};
+  return service.post( url, data, config).then((res: any) => res, (err: any) => errorHandler(err)).catch((e: any) => {
+    console.log("系统异常");
+  });};
 export const del = (url: string, data?: any, config?: Axios.AxiosRequestConfig | undefined): Axios.AxiosPromise<any> => {
   return service.delete( url, data, config).then((res: any) => res, (err: any) => errorHandler(err));
 };

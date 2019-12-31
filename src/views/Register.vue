@@ -55,21 +55,21 @@ import validate from "@/util/reg.check";
 
   }
 })
-export default class Home extends Vue {
+export default class Register extends Vue {
     user: object = {
-        email: '',
-        password: '',
+        email: '963097377@qq.com',
+        password: '123456',
         category: '',
-        company_name: '',
-        real_name: '',
-        phone: '',
+        company_name: '爱尚盟卡',
+        real_name: 'louis',
+        phone: '18516070553',
         has_media_contact: false,
         media_contact_phone: '',
     };
     created() {
         // this.$router.push({path: '/homePage'});
     }
-    submit() {
+    async submit() {
         const self: any = this;
         const flag_e = validate.isNull(self.user.email) || !validate.isEmail(self.user.email);
         const flag_pa = validate.isNull(self.user.password) || self.user.password.length < 6;
@@ -94,27 +94,19 @@ export default class Home extends Vue {
             self.$message.error('手机号邮箱必填,且必须为真实可用号');return;
         }
         if(flag_h) {
-            self.$message.error('媒介联系人必填');return;
+            self.$message.error('是否有媒介联系人必选');return;
         }
-        if(!flag_cp) {
-            if(validate.isPhone(self.user.media_contact_phone)) {
-                register(self.user).then((res: any) => {
-                    self.$message.success("注册成功,请登录！");
-                    self.goLogin();
-                }).catch((err: any) => {
-                    console.log(err);
-                });
-            }else {
+        // 有媒介联系人，校验信息
+        if(self.user.has_media_contact) {
+            if(!validate.isPhone(self.user.media_contact_phone)) {
                 self.$message.error('媒介联系人手机号码格式错误');
+                return;
             }
-        }else {
-            register(self.user).then((res: any) => {
-                self.$message.success("注册成功,请登录！");
-                self.goLogin();
-            }).catch((err: any) => {
-                console.log(err);
-            });
         }
+        const res: any = await register(self.user);
+        console.log(res);
+        self.$message.success("注册成功,请登录！")
+        self.goLogin();
     }
     goLogin() {
         const self: any = this;
@@ -137,19 +129,16 @@ export default class Home extends Vue {
     .content-container{
         position: absolute;
         left: 50%;
-        top: 0;
+        top: 50%;
+        transform: translate(-50%, -50%);
         width: 550px;
-        height: 932px;
-        margin-left: - 225px;
         .signup{
             overflow: hidden;
-            padding: 50px 0;
             .aishang-logo{
                 display: block;
                 margin: 0 auto;
                 width: 280px;
                 height: 65px;
-                // margin-bottom: 10px;
                 background-image: url('../assets/logo/logoWithName.jpg');
                 background-size: cover;
                 background-position: center center;

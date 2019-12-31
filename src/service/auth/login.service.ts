@@ -34,14 +34,13 @@ const updateAgentInfo = async (params: any) => {
     })
 }
 const register = (params: any) => {
-    return new Promise((resolve: any, reject: any) => {
-        post(restColection.register, params).then((res: any) => {
-            if(res.code === 200) {
-                resolve(res.data);
-            } else {
-                reject(res);
-            }
-        })
-    })
+    return new Promise(async (resolve: any, reject: any) => {
+        const res: any = await post(restColection.register, params);
+        if(res.code === 200) {
+            resolve(res.data);
+        } else {
+            reject(res);
+        }
+    });
 }
 export {login,register, getUserInfo, updateAgentInfo}
