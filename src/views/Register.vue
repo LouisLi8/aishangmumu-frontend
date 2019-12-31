@@ -59,7 +59,7 @@ export default class Register extends Vue {
     user: object = {
         email: '963097377@qq.com',
         password: '123456',
-        category: '',
+        category: 2,
         company_name: '爱尚盟卡',
         real_name: 'louis',
         phone: '18516070553',
@@ -71,14 +71,14 @@ export default class Register extends Vue {
     }
     async submit() {
         const self: any = this;
-        const flag_e = validate.isNull(self.user.email) || !validate.isEmail(self.user.email);
-        const flag_pa = validate.isNull(self.user.password) || self.user.password.length < 6;
+        const flag_e = validate.isEmail(self.user.email);
+        const flag_pa = self.user.password.length < 5;
         const flag_c = validate.isNull(self.user.company_name);
         const flag_r = validate.isNull(self.user.real_name);
-        const flag_ph = validate.isNull(self.user.phone) || !validate.isPhone(self.user.phone);
+        const flag_ph = validate.isPhone(self.user.phone);
         const flag_h = validate.isNull(self.user.has_media_contact);
         const flag_cp = validate.isNull(self.user.media_contact_phone);
-        if(flag_e) {
+        if(!flag_e) {
             self.$message.error('邮箱必填，且必须为真实可用邮箱');return;
         }
         if(flag_pa) {
@@ -90,12 +90,13 @@ export default class Register extends Vue {
         if(flag_r) {
             self.$message.error('真实姓名不能为空');return;
         }
-        if(flag_ph) {
-            self.$message.error('手机号邮箱必填,且必须为真实可用号');return;
+        if(!flag_ph) {
+            self.$message.error('手机号必填,且必须为真实可用号');return;
         }
         if(flag_h) {
             self.$message.error('是否有媒介联系人必选');return;
         }
+
         // 有媒介联系人，校验信息
         if(self.user.has_media_contact) {
             if(!validate.isPhone(self.user.media_contact_phone)) {
