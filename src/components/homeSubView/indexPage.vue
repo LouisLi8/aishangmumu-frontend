@@ -2,37 +2,86 @@
     <div class="wrap">
         <div class="card">
             <p style="font-size: 20px;font-family: PingFangSC-Medium;color: #2b2d32;font-weight: bold;">欢迎，苏州爱尚沐沐网络科技有限公司</p>
-            <p>媒体质量得分：<span style="position: relative;
-    top: 1px;
-    font-size: 20px !important;
-    color: #497FFF !important;
-    cursor: pointer;
-    font-weight: bold;">1.27</span></p>
+            <p>媒体质量得分：
+                <span style="position: relative;
+                    top: 1px;
+                    font-size: 20px !important;
+                    color: #497FFF !important;
+                    cursor: pointer;
+                    font-weight: bold;">
+                    <span v-if="userInfo.revenue">
+                        {{userInfo.revenue.score ? userInfo.revenue.score : '0'}}
+                    </span>
+                    <span v-else>
+                        0
+                    </span>
+                </span>
+            </p>
         </div>
         <div class="card">
-            <el-row>
+            <el-row v-if="userInfo.revenue">
                 <el-col :span="6">
                     <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
                         <p>昨日预计收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">530.01元</p>
+                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                            {{userInfo.revenue.last_days_revenue ? userInfo.revenue.last_days_revenue+' 元': '0'}}</p>
                     </div>
                 </el-col>
                 <el-col :span="6">
                     <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
                         <p>近7日收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">530.01元</p>
+                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                             {{userInfo.revenue.last_seven_days_revenue ? userInfo.revenue.last_seven_days_revenue+' 元': '0'}}
+                        </p>
                     </div>
                 </el-col>
                 <el-col :span="6">
                     <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
                         <p>本月收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">530.01元</p>
+                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                            {{userInfo.revenue.month_revenue ? userInfo.revenue.month_revenue+' 元': '0'}}
+                        </p>
                     </div>
                 </el-col>
                 <el-col :span="6">
                     <div style="text-align:center;">
                         <p>累计收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">530.01元</p>
+                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                            {{userInfo.revenue.revenue ? userInfo.revenue.revenue+' 元': '0'}}
+                        </p>
+                    </div>
+                </el-col>
+            </el-row>
+            <el-row v-else>
+                <el-col :span="6">
+                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                        <p>昨日预计收益</p>
+                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                            0</p>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                        <p>近7日收益</p>
+                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                             0
+                        </p>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                        <p>本月收益</p>
+                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                            0
+                        </p>
+                    </div>
+                </el-col>
+                <el-col :span="6">
+                    <div style="text-align:center;">
+                        <p>累计收益</p>
+                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                            0
+                        </p>
                     </div>
                 </el-col>
             </el-row>
@@ -47,11 +96,17 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class Login extends Vue  {
+    userInfo: any = {};
     constructor() {
         super();
     }
     created() {
         const self: any = this;
+        self.initUserInfo();
+    }
+    async initUserInfo() {
+        const self: any = this;
+        self.userInfo = await self.$storage.get('userInfo')
     }
 }
 </script>

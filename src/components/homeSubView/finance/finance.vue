@@ -11,7 +11,8 @@
         </div>
         <div class="account-info-money">
           总余额
-          <span>3.16</span>
+          <span v-if="userInfo.revenue">{{userInfo.revenue.revenue ? userInfo.revenue.revenue : 0}}</span>
+          <span v-else>0</span>
           元
         </div>
       </div>
@@ -54,13 +55,35 @@
           <div class="account-info-order">1</div>
           <span class="account-info-name">开票公司：苏州爱尚沐沐网络科技有限公司</span>
           <div class="account-info-money-a">
-            账户余额B
-            <span>2.18</span> 元
+            账户余额
+            <span v-if="userInfo.revenue">{{userInfo.revenue.revenue ? userInfo.revenue.revenue : 0}}</span>
+            <span v-else>0</span>
+            元
           </div>
-          <div class="account-info-button" title="余额不足100元无法提现">
-            <button type="button" class="ant-btn ta-btn ta-btn-major disabled">
-              <span>申请提现</span>
-            </button>
+          <div v-if="userInfo.revenue && userInfo.revenue.revenue > 99">
+              <span v-if="userInfo.revenue.status === 0">
+                <div class="account-info-button">
+                  <button type="button" class="ant-btn ta-btn ta-btn-major disabled" style="cursor:default;">
+                      <span >申请提现中，请等待管理员审核...</span>
+                  </button>
+                </div>
+              </span>
+              <span v-else>
+                <div class="account-info-button">
+                  <button type="button" class="ant-btn ta-btn ta-btn-major disabled" style="background:#1051d4;">
+                      <span @click="applyCash">申请提现</span>
+                  </button>
+                </div>
+              </span>
+          </div>
+          <div v-else>
+            <el-tooltip class="item" effect="dark" content="余额不足100元无法提现" placement="top">
+              <div class="account-info-button">
+                <button type="button" class="ant-btn ta-btn ta-btn-major disabled">
+                    <span>申请提现</span>
+                </button>
+              </div>
+            </el-tooltip>
           </div>
         </li>
       </ul>
@@ -179,9 +202,24 @@ export default class Login extends Vue {
   mounted() {
     this.initUserInfo();
   }
+  async applyCash() {
+    const self: any = this;
+    const r = await self.$store.dispatch("applyCash", {
+      id: self.userInfo.id,
+      status: 0,
+      status_name: '申请提现'
+    })
+    console.log(r)
+    if(r) {
+      self.$message.success("申请提现成功");
+      self.userInfo = await self.$store.dispatch("getUserInfo");
+      self.$storage.set("userInfo", self.userInfo);
+    }
+  }
   async initUserInfo() {
     const self: any = this;
-    self.userInfo = await self.$storage.get("userInfo");
+    self.userInfo = await self.$store.dispatch("getUserInfo");
+    self.$storage.set("userInfo", self.userInfo);
   }
   changeNav(index: number) {
     this.activeIndex = index;

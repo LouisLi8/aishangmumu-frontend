@@ -18,26 +18,27 @@
                         <i class='el-icon-bell'></i>
                         <span class="down-menu-splic">|</span>
                         <el-popover
+                            
                             :visible-arrow="false"
                             placement="bottom"
                             width="320"
                             trigger="click"
                             >
-                            <div class="bussiness-docking-wrap">
+                            <div class="bussiness-docking-wrap" v-if="qcode_data">
                                 <!-- <h3>对接人： 吕仁杰</h3> -->
                                 <div class="bussiness-docking-man">
                                     对接人：
-                                    <span>吕仁杰</span>
+                                    <span>{{qcode_data.name || '暂未设置'}}</span>
                                 </div>
                                 <div class="bussiness-docking-content">
                                     您好，我是您的商务对接人，为您提供最优质的商业化解决方案，请与我建立联系。
                                 </div>
                                 <div class="bussiness-docking-code">
-                                    <img src="http://yun.duiba.com.cn/tuia-media/img/mx5ew068yc.png" alt="">
+                                    <img :src="qcode_data.src" alt="">
                                 </div>
                                 <ul class="bussiness-docking-info">
-                                    <li class="bussiness-docking-acticity">微信号：<span class="bussiness-wechart">weixinatongmu</span></li>
-                                    <li class="bussiness-docking-acticity">手机号：<span class="bussiness-wechart">18516070553</span></li>
+                                    <li class="bussiness-docking-acticity">微信号：<span class="bussiness-wechart">{{qcode_data.wechat || '暂未设置'}}</span></li>
+                                    <li class="bussiness-docking-acticity">手机号：<span class="bussiness-wechart">{{qcode_data.tel || '暂未设置'}}</span></li>
                                 </ul>
                                 <p></p>
                             </div>
@@ -75,6 +76,7 @@ import cacheSession from '@/util/cacheSession';
     }
 })
 export default class Login extends Vue  {
+    qcode_data: any = {};
     logoSrc: any = require('@/assets/logo/logoWithName.jpg');
     userInfo: any = this.$store.state.user.userInfo
     constructor() {
@@ -82,15 +84,19 @@ export default class Login extends Vue  {
     }
     created() {
         const self: any = this;
-        // if(!self.$store.state.user.userInfo || !self.$store.state.user.userInfo.email) {
-        //     self.$router.push({path: '/login'});
-        // }
+        self.initUserInfo();
     }
-    
+    async initUserInfo() {
+        const self: any = this;
+        self.userInfo = await self.$storage.get("userInfo");
+        const qcode: any = await self.$store.dispatch("getQcode");
+        if(qcode.length > 0) {
+            self.qcode_data = qcode[0];
+        }
+    }
    
     quit() {
         const self: any = this;
-        // self.goLoginPage();
         self.$router.push({path: '/login'});
     }
 }
@@ -128,7 +134,7 @@ export default class Login extends Vue  {
                 position: absolute;
                 top: 120px;
                 left: 83px;
-                background: #666;
+                // background: #666;
                 img{
                     width: 100%;
                 }

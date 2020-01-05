@@ -28,13 +28,13 @@ const axios: any = Axios.default;
 axios.defaults.baseURL = apiBaseUrl;
 axios.defaults.retry = 4;
 axios.defaults.retryDelay = 1000;
-axios.defaults.timeout = 3000;
+axios.defaults.timeout = 5000;
 const app: any = new Vue();
 
 // create an axios instance   创建axios实例
 const service = axios.create({
   baseURL: apiBaseUrl,
-  timeout: 3000,
+  timeout: 5000,
   responseType: "json",
   withCredentials: false,
   headers: {

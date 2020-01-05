@@ -2,9 +2,12 @@
 const apiBaseUrl = (process.env.NODE_ENV === "production" ? "http://api.jmaogou.com" : "/api");
 const restColection = {
     register: 'api/v1/user/create',
+    sendSms: 'api/v1/mail/send',
     login: 'api/v1/user/login',
     user_info: 'api/v1/user/info',
     updateAgentInfo: 'api/v1/user/updateAgentInfo',
+    resetPassword: 'api/v1/user/resetPassword',
+    applyCash: 'api/v1/user/revenue/create',
     // 财务信息
     finance_info: 'api/v1/finance/info',
     finance_create: 'api/v1/finance/create',
@@ -18,6 +21,7 @@ const restColection = {
     ad_revenue_list: 'api/v1/advertisingAssemble/list',
     adposition_add: 'api/v1/adposition/create',
     adposition_search: 'api/v1/adposition/search',
-    upload: 'api/v1/image/upload'
+    upload: 'api/v1/image/upload',
+    getQcode: 'api/v1/qcode/info',
 }
 export {apiBaseUrl,restColection};

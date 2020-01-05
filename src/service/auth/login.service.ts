@@ -22,6 +22,28 @@ const getUserInfo = async () => {
         })
     })
 }
+const resetPassword = async (params: any) => {
+    return new Promise((resolve: any, reject: any) => {
+        post(restColection.resetPassword, params).then((res: any) => {
+            if(res.code === 200) {
+                resolve(res.data);
+            } else {
+                reject(res);
+            }
+        })
+    })
+}
+const applyCash = async (params: any) => {
+    return new Promise((resolve: any, reject: any) => {
+        post(restColection.applyCash, params).then((res: any) => {
+            if(res.code === 200) {
+                resolve(res.data);
+            } else {
+                reject(res);
+            }
+        })
+    })
+}
 const updateAgentInfo = async (params: any) => {
     return new Promise((resolve: any, reject: any) => {
         post(restColection.updateAgentInfo, params).then((res: any) => {
@@ -43,4 +65,14 @@ const register = (params: any) => {
         }
     });
 }
-export {login,register, getUserInfo, updateAgentInfo}
+const mailSend = (params: any) => {
+    return new Promise(async (resolve: any, reject: any) => {
+        const res: any = await post(restColection.sendSms, params);
+        if(res.code === 200) {
+            resolve(res.data);
+        } else {
+            reject(res);
+        }
+    });
+}
+export {login,register, getUserInfo, updateAgentInfo, resetPassword, applyCash, mailSend}

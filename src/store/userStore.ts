@@ -29,5 +29,13 @@ export default {
       commit('updateUserInfo', userInfo);
       return userInfo;
     },
+    async resetPassword({ commit }: any, params: any) {
+      const res = await loginService.resetPassword(params).catch((err: any) =>{});
+      return res;
+    },
+    async applyCash({ commit }: any, params: any) {
+      const res = await loginService.applyCash(params).catch((err: any) =>{});
+      return res;
+    },
   }
 }

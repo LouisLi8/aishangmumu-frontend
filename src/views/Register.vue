@@ -6,8 +6,14 @@
                   <a class="aishang-logo"  href="/"></a>
                     <el-form label-position="top" ref="ruleForm"  label-width="80px">
                         <el-form-item label="账户信息" required>
-                            <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
+                            <el-row>
+                                <el-col :span="18"><el-input v-model="user.email" placeholder="请输入邮箱"></el-input></el-col>
+                                <el-col :span="6"><el-button style="width: 100%;" @click.prevent="sendSms" v-loading="loadingSms" :disabled="loadingSms">获取验证码</el-button></el-col>
+                            </el-row>
+                            <!-- <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
+                            <el-button @click.prevent="removeDomain(domain)">删除</el-button> -->
                         </el-form-item>
+                        
                         <el-form-item label="">
                             <el-input v-model="user.password" type="password" placeholder="请输入密码"></el-input>
                         </el-form-item>
@@ -48,7 +54,7 @@
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Vue } from "vue-property-decorator";
-import {register} from "@/service/auth/login.service";
+import {register, mailSend} from "@/service/auth/login.service";
 import validate from "@/util/reg.check";
 @Component({
   components: {
@@ -56,6 +62,7 @@ import validate from "@/util/reg.check";
   }
 })
 export default class Register extends Vue {
+    loadingSms: boolean = false;
     user: object = {
         email: '963097377@qq.com',
         password: '123456',
@@ -68,6 +75,23 @@ export default class Register extends Vue {
     };
     created() {
         // this.$router.push({path: '/homePage'});
+    }
+    async sendSms() {
+        const self: any = this;
+        const {email, real_name} = self.user;
+        if(!validate.isEmail(email)) {
+            self.$message.error('邮箱必填，且必须为真实可用邮箱');return;
+        }
+        if(validate.isNull(real_name)) {
+            self.$message.error('请先输入真实姓名之后，在获取邮箱');return;
+        }
+        self.loadingSms = true;
+        const r: any = await mailSend({ username: real_name, email });
+        self.loadingSms = false;
+        console.log(r)
+        if(r) {
+            self.$message.success('邮件发送成功，请在一分钟之内输入');
+        }
     }
     async submit() {
         const self: any = this;
@@ -85,7 +109,12 @@ export default class Register extends Vue {
             self.$message.error('密码不能少于6位');return;
         }
         if(flag_c) {
-            self.$message.error('公司名不能为空');return;
+            self.$message.error('公司名不能为空');
+            return;
+        }
+        if(self.user.company_name.indexOf("有限公司") === -1){
+            self.$message.error('公司只能为有限公司');
+            return 
         }
         if(flag_r) {
             self.$message.error('真实姓名不能为空');return;

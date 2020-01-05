@@ -13,7 +13,7 @@
                 </li>
             </ul>
         </div>
-        <div class="ant-form-top-info">
+        <div class="ant-form-top-info" style="height: 290px;">
             <div class="ant-form-basic-info">安全信息</div>
             <ul>
                 <li class="ant-form-basic-item">
@@ -24,8 +24,34 @@
                     <span class="ant-form-basic-name">联系电话</span>
                     <span class="ant-form-basic-companyname">{{userInfo.phone}}</span>
                 </li>
+                <li class="ant-form-basic-item">
+                    <span class="ant-form-basic-name" style="margin-left:140px;">密码</span>
+                    <span class="ant-form-basic-companyname" style="color:#53C419">已设置</span>
+                    <span class="modifyBtn" @click="dialogVisible = true">修改</span>
+                </li>
             </ul>
         </div>
+        <el-dialog
+        title="修改密码"
+        :visible.sync="dialogVisible"
+        width="30%"
+        :before-close="handleClose">
+        <el-form label-position="top">
+            <el-form-item label="请输入旧密码">
+                <el-input v-model="passwordInfo.old_pass" type="password"></el-input>
+            </el-form-item>
+            <el-form-item label="请输入新密码">
+                <el-input v-model="passwordInfo.password" type="password"></el-input>
+            </el-form-item>
+            <el-form-item label="请确认新密码">
+                <el-input v-model="passwordInfo.confirm_password" type="password"></el-input>
+            </el-form-item>
+        </el-form>
+        <span slot="footer" class="dialog-footer">
+            <el-button @click="dialogVisible = false">取 消</el-button>
+            <el-button type="primary" @click="makeSureToReset">确 定</el-button>
+        </span>
+        </el-dialog>
     </div>
 </template>
 <script lang="ts">
@@ -36,8 +62,37 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
 })
 export default class Basic extends Vue  {
     userInfo: any = {};
+    passwordInfo: any = {
+        old_pass: '',
+        password: '',
+        confirm_password: ''
+    };
+    dialogVisible: boolean = false;
     mounted() {
         this.initUserInfo();
+    }
+    handleClose() {
+        const self: any =  this;
+        self.passwordInfo = {
+            old_pass: '',
+            password: '',
+            confirm_password: ''
+        }
+    }
+    async makeSureToReset() {
+        const self: any =  this;
+        const res:any = await self.$store.dispatch("resetPassword", self.passwordInfo);
+        self.dialogVisible = false;
+        // console.log(res)
+        if(res) {
+            self.$message.success("密码修改成功,请重新登录");
+            self.passwordInfo = {
+                old_pass: '',
+                password: '',
+                confirm_password: ''
+            }
+            self.$router.replace({name: 'login'})
+        }
     }
     async initUserInfo() {
         const self: any = this;
@@ -92,6 +147,19 @@ export default class Basic extends Vue  {
                 font-size: 14px;
                 color: #25293E;
                 margin-left: 120px;
+            }
+            .modifyBtn{
+                position: absolute;
+                width: 88px;
+                height: 30px;
+                line-height: 30px;
+                border-radius: 2px;
+                background: #E4E9ED;
+                text-align: center;
+                color: #666;
+                font-size: 14px;
+                cursor: pointer;
+                right: 28px;
             }
         }
     }

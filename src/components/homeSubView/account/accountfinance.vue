@@ -4,7 +4,12 @@
             <div class="ant-form-top-info" style="height: 444px;">
                 <el-button class="rePass" v-loading="loading" @click="isEdit = true" v-if="isFirstCheck">{{isFirstCheck}}</el-button>
                 <div class="ant-form-basic-info">财务认证信息</div>
-                <ul style="padding: 20px ;" >
+                <ul style="padding: 20px ;" v-if="isFirstCheck && isFirstCheck === '认证'">
+                    <li class="ant-form-basic-item"  >
+                        <span class="ant-form-basic-name">暂未认证</span>
+                    </li>
+                </ul>
+                <ul style="padding: 20px ;" v-else>
                     <li class="ant-form-basic-item"  >
                         <span class="ant-form-basic-name">审核状态</span>
                         <span class="ant-form-basic-companyname" style="color:#11b231">
@@ -40,7 +45,12 @@
             </div>
             <div class="ant-form-top-info"  style="height: 500px;">
                 <div class="ant-form-basic-info">开户认证信息</div>
-                <ul style="padding: 20px ;">
+                <ul style="padding: 20px ;" v-if="isFirstCheck && isFirstCheck === '认证'">
+                    <li class="ant-form-basic-item"  >
+                        <span class="ant-form-basic-name">暂未认证</span>
+                    </li>
+                </ul>
+                <ul style="padding: 20px ;" v-else>
                     <li class="ant-form-basic-item">
                         <span class="ant-form-basic-name">开户公司</span>
                         <span class="ant-form-basic-companyname">{{finance.account_company}}</span>
