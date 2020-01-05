@@ -30,8 +30,8 @@ module.exports = {
     host: '0.0.0.0',
     proxy: {
       "/api/": {
-        // target: "http://api.jmaogou.com", // develop
-        target: "http://127.0.0.1:3000", // local
+        target: "http://api.jmaogou.com", // develop
+        // target: "http://127.0.0.1:3000", // local
         ws: true,
         changeOrigin: true,
         pathRewrite: { "^/api/": "/" }

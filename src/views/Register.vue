@@ -97,7 +97,7 @@ export default class Register extends Vue {
     countStart() {
         const self: any = this;
         self.smsText = 59;
-        const timer = setTimeout(() => {
+        const timer = setInterval(() => {
             if(self.smsText == 1) {
                 clearTimeout(timer);
                 self.loadingSms = false;
