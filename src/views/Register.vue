@@ -64,12 +64,12 @@ import validate from "@/util/reg.check";
 export default class Register extends Vue {
     loadingSms: boolean = false;
     user: object = {
-        email: '963097377@qq.com',
-        password: '123456',
+        email: '',
+        password: '',
         category: 2,
-        company_name: '爱尚盟卡',
-        real_name: 'louis',
-        phone: '18516070553',
+        company_name: '',
+        real_name: '',
+        phone: '',
         has_media_contact: false,
         media_contact_phone: '',
     };
