@@ -6,14 +6,15 @@
                   <a class="aishang-logo"  href="/"></a>
                     <el-form label-position="top" ref="ruleForm"  label-width="80px">
                         <el-form-item label="账户信息" required>
-                            <el-row>
-                                <el-col :span="18"><el-input v-model="user.email" placeholder="请输入邮箱"></el-input></el-col>
-                                <el-col :span="6"><el-button style="width: 100%;" @click.prevent="sendSms" v-loading="loadingSms" :disabled="loadingSms">获取验证码</el-button></el-col>
-                            </el-row>
-                            <!-- <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
-                            <el-button @click.prevent="removeDomain(domain)">删除</el-button> -->
+                            <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
                         </el-form-item>
                         
+                        <el-form-item label="">
+                            <el-row>
+                                <el-col :span="18"><el-input v-model="user.sms" placeholder="请输入验证码"></el-input></el-col>
+                                <el-col :span="6"><el-button style="width: 100%;" @click.prevent="sendSms" :disabled="loadingSms">{{smsText}}</el-button></el-col>
+                            </el-row>
+                        </el-form-item>
                         <el-form-item label="">
                             <el-input v-model="user.password" type="password" placeholder="请输入密码"></el-input>
                         </el-form-item>
@@ -62,6 +63,7 @@ import validate from "@/util/reg.check";
   }
 })
 export default class Register extends Vue {
+    smsText: string|number = "获取验证码";
     loadingSms: boolean = false;
     user: object = {
         email: '',
@@ -87,11 +89,23 @@ export default class Register extends Vue {
         }
         self.loadingSms = true;
         const r: any = await mailSend({ username: real_name, email });
-        self.loadingSms = false;
-        console.log(r)
         if(r) {
             self.$message.success('邮件发送成功，请在一分钟之内输入');
+            self.countStart();
         }
+    }
+    countStart() {
+        const self: any = this;
+        self.smsText = 59;
+        const timer = setTimeout(() => {
+            if(self.smsText == 1) {
+                clearTimeout(timer);
+                self.loadingSms = false;
+                self.smsText = "获取验证码";
+            } else {
+               --self.smsText 
+            }
+        }, 1000)
     }
     async submit() {
         const self: any = this;
