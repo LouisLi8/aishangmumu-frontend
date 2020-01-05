@@ -7,6 +7,7 @@ const restColection = {
     user_info: 'api/v1/user/info',
     updateAgentInfo: 'api/v1/user/updateAgentInfo',
     resetPassword: 'api/v1/user/resetPassword',
+    resetPasswordWithoutLogin: 'api/v1/user/resetPasswordWithoutLogin',
     applyCash: 'api/v1/user/revenue/create',
     // 财务信息
     finance_info: 'api/v1/finance/info',

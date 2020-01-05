@@ -10,17 +10,17 @@
                             <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
                         </el-form-item>
                         <el-form-item label="">
-                            <el-input placeholder="请输入验证码" v-model="input2">
+                            <el-input placeholder="请输入验证码" v-model="user.sms">
                                 <template slot="append">
-                                    <el-button>获取验证码</el-button>
+                                    <el-button @click.prevent="sendSms" :disabled="loadingSms">{{smsText}}</el-button>
                                 </template>
                             </el-input>
                         </el-form-item>
                         <el-form-item label="">
-                            <el-input v-model="user.email" placeholder="请输入新密码"></el-input>
+                            <el-input v-model="user.password" type="password" placeholder="请输入新密码"></el-input>
                         </el-form-item>
                         <el-form-item label="">
-                            <el-input v-model="user.email" placeholder="请确认新密码"></el-input>
+                            <el-input v-model="user.confirm_password" type="password" placeholder="请确认新密码"></el-input>
                         </el-form-item>
                         <el-button class="submitBtn active" @click.native="submit">确认重置密码</el-button>
                         <div class="foot">
@@ -37,17 +37,20 @@
 <script lang="ts">
 // @ is an alias to /src
 import { Component, Vue } from "vue-property-decorator";
-import {login} from "@/service/auth/login.service";
+import {resetPasswordWithoutLogin, mailSend} from "@/service/auth/login.service";
 import validate from "@/util/reg.check";
 @Component({
   components: {
   }
 })
 export default class Home extends Vue {
+  smsText: string|number = "获取验证码";
   user: any = {
+      sms: '',
       email: '',
       password: ''
   };
+  loadingSms: boolean = false;
   saveEmail: boolean = false;
   constructor(){
       super();
@@ -57,26 +60,38 @@ export default class Home extends Vue {
     const email = localStorage.getItem('email');
     if(email) { self.user.email = email};
   }
-  submit() {
-    console.log('提交');
+  async sendSms() {
+        const self: any = this;
+        const {email, real_name} = self.user;
+        if(!validate.isEmail(email)) {
+            self.$message.error('邮箱必填，且必须为真实可用邮箱');return;
+        }
+        self.loadingSms = true;
+        const r: any = await mailSend({ email });
+        if(r) {
+            self.$message.success('邮件发送成功，请在一分钟之内输入');
+            self.countStart();
+        }
+    }
+  async submit() {
     const self: any = this;
     if(validate.isNull(self.user.email) || !validate.isEmail(self.user.email)) {
         self.$message.error('邮箱必填，且必须为真实可用邮箱');return;
     }
+    if(validate.isNull(self.user.sms)) {
+        self.$message.error('验证码必填');return;
+    }
     if(validate.isNull(self.user.password)) {
         self.$message.error('密码必填');return;
     }
-    login(self.user).then((res: any) => {
-        console.log(res);
-        self.$router.push({path: '/'});
-        if(self.saveEmail) {
-            localStorage.setItem('email', self.user.email);
-        } else {
-            localStorage.removeItem('email');
-        }
-    }).catch((err: any) => {
+    const r = await resetPasswordWithoutLogin(self.user).catch((err: any) => {
         console.log(err);
     });
+
+    if(r) {
+        self.$message.success("密码修改成功!");
+        self.$router.push({name: 'login'});
+    }
   }
   goRegister() {
       const self: any = this;

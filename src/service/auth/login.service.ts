@@ -22,6 +22,17 @@ const getUserInfo = async () => {
         })
     })
 }
+const resetPasswordWithoutLogin = async (params: any) => {
+    return new Promise((resolve: any, reject: any) => {
+        post(restColection.resetPasswordWithoutLogin, params).then((res: any) => {
+            if(res.code === 200) {
+                resolve(res.data);
+            } else {
+                reject(res);
+            }
+        })
+    })
+}
 const resetPassword = async (params: any) => {
     return new Promise((resolve: any, reject: any) => {
         post(restColection.resetPassword, params).then((res: any) => {
@@ -75,4 +86,4 @@ const mailSend = (params: any) => {
         }
     });
 }
-export {login,register, getUserInfo, updateAgentInfo, resetPassword, applyCash, mailSend}
+export {login,register, getUserInfo, updateAgentInfo, resetPassword, applyCash, mailSend, resetPasswordWithoutLogin}
