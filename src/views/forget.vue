@@ -73,6 +73,19 @@ export default class Home extends Vue {
             self.countStart();
         }
     }
+    countStart() {
+        const self: any = this;
+        self.smsText = 59;
+        const timer = setTimeout(() => {
+            if(self.smsText == 1) {
+                clearTimeout(timer);
+                self.loadingSms = false;
+                self.smsText = "获取验证码";
+            } else {
+               --self.smsText 
+            }
+        }, 1000)
+    }
   async submit() {
     const self: any = this;
     if(validate.isNull(self.user.email) || !validate.isEmail(self.user.email)) {
