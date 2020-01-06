@@ -1,5 +1,5 @@
 
-const apiBaseUrl = (process.env.NODE_ENV === "production" ? "http://api.jmaogou.com" : "/api");
+const apiBaseUrl = (process.env.NODE_ENV === "production" ? "http://asmumu.jmaogou.com:3000" : "/api");
 const restColection = {
     register: 'api/v1/user/create',
     sendSms: 'api/v1/mail/send',

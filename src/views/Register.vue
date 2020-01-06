@@ -10,13 +10,18 @@
                         </el-form-item>
                         
                         <el-form-item label="">
-                            <el-row>
-                                <el-col :span="18"><el-input v-model="user.sms" placeholder="请输入验证码"></el-input></el-col>
+                            <el-input placeholder="请输入验证码" v-model="user.sms" auto-complete="new-password">
+                                <template slot="append">
+                                    <el-button @click.prevent="sendSms" :disabled="loadingSms">{{smsText}}</el-button>
+                                </template>
+                            </el-input>
+                            <!-- <el-row>
+                                <el-col :span="18"><el-input v-model="user.sms" placeholder="请输入验证码" auto-complete="new-password"></el-input></el-col>
                                 <el-col :span="6"><el-button style="width: 100%;" @click.prevent="sendSms" :disabled="loadingSms">{{smsText}}</el-button></el-col>
-                            </el-row>
+                            </el-row> -->
                         </el-form-item>
                         <el-form-item label="">
-                            <el-input v-model="user.password" type="password" placeholder="请输入密码"></el-input>
+                            <el-input v-model="user.password" type="password" placeholder="请输入密码" auto-complete="new-password"></el-input>
                         </el-form-item>
                         <el-form-item label="账户类型" required>
                              <el-radio-group v-model="user.category">
