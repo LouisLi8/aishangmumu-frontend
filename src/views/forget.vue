@@ -67,15 +67,15 @@ export default class Home extends Vue {
             self.$message.error('邮箱必填，且必须为真实可用邮箱');return;
         }
         self.loadingSms = true;
+        self.smsText = 59;
+        self.countStart();
         const r: any = await mailSend({ email });
         if(r) {
             self.$message.success('邮件发送成功，请在一分钟之内输入');
-            self.countStart();
         }
     }
     countStart() {
         const self: any = this;
-        self.smsText = 59;
         const timer = setInterval(() => {
             if(self.smsText == 1) {
                 clearTimeout(timer);
