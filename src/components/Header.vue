@@ -95,8 +95,9 @@ export default class Login extends Vue  {
         }
     }
    
-    quit() {
+    async quit() {
         const self: any = this;
+        await self.$storage.clear();
         self.$router.push({path: '/login'});
     }
 }

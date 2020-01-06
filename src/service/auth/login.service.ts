@@ -69,7 +69,7 @@ const updateAgentInfo = async (params: any) => {
 const register = (params: any) => {
     return new Promise(async (resolve: any, reject: any) => {
         const res: any = await post(restColection.register, params);
-        if(res.code === 200) {
+        if(res && res.code === 200) {
             resolve(res.data);
         } else {
             reject(res);
@@ -79,7 +79,7 @@ const register = (params: any) => {
 const mailSend = (params: any) => {
     return new Promise(async (resolve: any, reject: any) => {
         const res: any = await post(restColection.sendSms, params);
-        if(res.code === 200) {
+        if(res && res.code === 200) {
             resolve(res.data);
         } else {
             reject(res);

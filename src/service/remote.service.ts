@@ -75,8 +75,8 @@ service.interceptors.request.use(async (config: any) => {
     } else {
       // 对请求错误做些什么
       const pathName: any = router.currentRoute.name;
-      if(!['login', 'backPassword'].includes(pathName)) {
-        return Promise.reject();
+      if(!['login', 'backPassword', 'forget', 'register'].includes(pathName)) {
+        return Promise.reject('拦截');
       }
     }
   return config;
@@ -159,7 +159,7 @@ export const get = (url: string, params?: any, config?: Axios.AxiosRequestConfig
 };
 export const post = (url: string, data?: any, config?: Axios.AxiosRequestConfig | undefined): Axios.AxiosPromise<any> => {
   return service.post( url, data, config).then((res: any) => res, (err: any) => errorHandler(err)).catch((e: any) => {
-    console.log("系统异常");
+    console.log("系统异常", e);
   });};
 export const del = (url: string, data?: any, config?: Axios.AxiosRequestConfig | undefined): Axios.AxiosPromise<any> => {
   return service.delete( url, data, config).then((res: any) => res, (err: any) => errorHandler(err));
