@@ -3,7 +3,7 @@
       <div class="content-container">
           <div class="signup">
               <div class="form">
-                    <a class="aishang-logo"  href="/"></a>
+                    <a class="aishang-logo"  href="javascript:void(0);"></a>
                     <el-form label-position="top" label-width="80px" :model="user">
                         <!-- <p>账户信息</p> -->
                         <el-form-item label="">
