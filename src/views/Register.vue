@@ -3,7 +3,7 @@
       <div class="content-container">
           <div class="signup">
               <div class="form">
-                  <a class="aishang-logo"  href="/"></a>
+                  <a class="aishang-logo"  href="javascript:void(0);"></a>
                     <el-form label-position="top" ref="ruleForm"  label-width="80px">
                         <el-form-item label="账户信息" required>
                             <el-input v-model="user.email" placeholder="请输入邮箱"></el-input>
