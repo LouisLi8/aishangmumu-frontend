@@ -10,7 +10,7 @@
             <div class="info">在正式合作之前，我们需要验证您对于您的网站的所有权，确保您的网站符合我们的合作规范。验证通过后，将便于我们的团队更快完成审核。</div>
             <div class="steps">
                 <p>1.请下载txt文件</p>
-                <p><a class="ml15" href="/mediaApp/getAppKeyText?appId=69463" target="_blank">下载</a></p>
+                <p><a class="btn-download ml15" href="http://api.jmaogou.com/public/file/appKey.txt" download="">下载</a></p>
                 <p>2.将其粘贴到您的网站的根目录中；</p>
                 <p><a class="url" :href="tempMedia.website_domain_name + '/appKey.txt'" target="_blank">{{tempMedia.website_domain_name}}</a></p>
                 <p>2.将其粘贴到您的网站的根目录中；</p>
