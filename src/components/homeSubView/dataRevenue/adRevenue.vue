@@ -59,9 +59,15 @@ export default class Login extends Vue  {
     }
     created() {
         const self: any = this;
-        self.$store.dispatch("ad_revenue_list").then((res: any) => {
-            self.tableData = res;
+        self.tableData = [];
+        self.$store.dispatch("ADPOSITION_LIST").then((res: any) => {
+            res.map((media: any) => {
+                if(media.revenue) self.tableData.push(media.revenue)
+            })
         });
+        // self.$store.dispatch("ad_revenue_list").then((res: any) => {
+        //     self.tableData = res;
+        // });
     }
     statusFormat(val: any) {
         console.log(val)

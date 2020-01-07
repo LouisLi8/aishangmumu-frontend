@@ -84,8 +84,11 @@ export default class Login extends Vue  {
     }
     created() {
         const self: any = this;
-        self.$store.dispatch("media_revenue_list").then((res: any) => {
-            self.tableData = res;
+        self.tableData = [];
+        self.$store.dispatch("MEDIA_LIST").then((res: any) => {
+            res.map((media: any) => {
+                if(media.revenue) self.tableData.push(media.revenue)
+            })
         });
     }
     arraySpanMethod({ row, column, rowIndex, columnIndex } : any) {

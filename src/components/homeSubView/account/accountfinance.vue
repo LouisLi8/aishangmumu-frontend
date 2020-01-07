@@ -25,7 +25,7 @@
                     </li>
                     <li class="ant-form-basic-item">
                         <span class="ant-form-basic-name">联系地址</span>
-                        <span class="ant-form-basic-companyname">{{finance.collection_company}}</span>
+                        <span class="ant-form-basic-companyname">{{finance.contact_address}}</span>
                     </li>
                     <li class="ant-form-basic-item">
                         <span class="ant-form-basic-name" style="margin-left: 10px;">营业执照号</span>
@@ -114,7 +114,7 @@
                     <li class="ant-form-basic-item">
                         <span class="ant-form-basic-name">联系地址</span>
                         <span class="ant-form-basic-companyname">
-                            <el-input v-model="finance.collection_company"></el-input>
+                            <el-input v-model="finance.contact_address"></el-input>
                         </span>
                     </li>
                     <li class="ant-form-basic-item">
@@ -215,7 +215,7 @@ export default class Basic extends Vue  {
     file: any = {};
     licenceFile: any = {};
     finance: any = {
-        object: '',
+        object: '公司',
         collection_company: '',
         contact_address: '',
         business_license_no: '',
