@@ -85,7 +85,8 @@
                             </div>
                             <!-- 正常可修改 -->
                             <div v-if="scope.row.status === 1">
-                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">修改</span>
+                                <span style="color: #4a90e2;cursor:pointer;margin-right: 10px;" @click="getLink(scope.row)">获取链接</span>
+                                <span style="color: #4a90e2;cursor:pointer" @click="goNewMedia(scope.row)">修改</span>
                             </div>
                             <!-- 拒绝之后重新提交 -->
                             <div v-if="scope.row.status === 2">
@@ -96,6 +97,15 @@
                 </el-table>
             </el-scrollbar>
         </div>
+        <el-dialog
+        title="广告位链接"
+      :visible.sync="centerDialogVisible"
+      >
+      <el-input v-model="link"></el-input>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="centerDialogVisible = false">确 定</el-button>
+      </span>
+  </el-dialog>
     </div>
 </template>
 
@@ -106,8 +116,10 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class Login extends Vue  {
+    link: string = '';
     media_name: string = '';
     media_id: number|string = '';
+    centerDialogVisible: boolean = false;
     tableData: [] = [];
     constructor() {
         super();
@@ -121,6 +133,10 @@ export default class Login extends Vue  {
     statusFormat(val: any) {
         console.log(val)
         // return val.
+    }
+    getLink(row: any) {
+        this.link = row.rejection_reason
+        this.centerDialogVisible = true
     }
     goNewMedia(row: any) {
         this.$router.push({
