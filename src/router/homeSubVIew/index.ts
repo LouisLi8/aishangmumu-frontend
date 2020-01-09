@@ -19,6 +19,12 @@ const routes = [
         import(/* webpackChunkName: "validmedia" */ "@/components/homeSubView/trafficCooperation/validmedia.vue"),
     },
     {
+      path: "/subUser",
+      name: "/subUser",
+      component: () =>
+    import(/* webpackChunkName: "subUser" */ "@/components/homeSubView/trafficCooperation/myUser.vue"),
+    },
+    {
       path: "/newMedia",
       name: "/newMedia",
       component: () =>

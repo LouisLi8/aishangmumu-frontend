@@ -76,6 +76,7 @@ service.interceptors.request.use(async (config: any) => {
       // 对请求错误做些什么
       const pathName: any = router.currentRoute.name;
       if(!['login', 'backPassword', 'forget', 'register'].includes(pathName)) {
+        router.push({path: '/login'});
         return Promise.reject('拦截');
       }
     }

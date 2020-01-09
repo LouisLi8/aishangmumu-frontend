@@ -5,6 +5,7 @@ const restColection = {
     sendSms: 'api/v1/mail/send',
     login: 'api/v1/user/login',
     user_info: 'api/v1/user/info',
+    subList: 'api/v1/user/subList',
     updateAgentInfo: 'api/v1/user/updateAgentInfo',
     resetPassword: 'api/v1/user/resetPassword',
     resetPasswordWithoutLogin: 'api/v1/user/resetPasswordWithoutLogin',

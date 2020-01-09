@@ -16,6 +16,13 @@ export default {
     }
   },
   actions: {
+    async getSubUserList({ commit }: any) {
+        const userInfo = await loginService.getSubUserList().catch((err: any) =>{
+            // console.error(err);
+        });
+        commit('updateUserInfo', userInfo);
+        return userInfo;
+    },
     async getUserInfo({ commit }: any) {
         const userInfo = await loginService.getUserInfo().catch((err: any) =>{
             // console.error(err);

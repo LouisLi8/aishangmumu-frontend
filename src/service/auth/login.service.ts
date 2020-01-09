@@ -11,6 +11,17 @@ const login = (params: any) => {
         })
     })
 }
+const getSubUserList = async () => {
+    return new Promise((resolve: any, reject: any) => {
+        get(restColection.subList).then((res: any) => {
+            if(res.code === 200) {
+                resolve(res.data);
+            } else {
+                reject(res);
+            }
+        })
+    })
+}
 const getUserInfo = async () => {
     return new Promise((resolve: any, reject: any) => {
         get(restColection.user_info).then((res: any) => {
@@ -86,4 +97,4 @@ const mailSend = (params: any) => {
         }
     });
 }
-export {login,register, getUserInfo, updateAgentInfo, resetPassword, applyCash, mailSend, resetPasswordWithoutLogin}
+export {login,register, getUserInfo, updateAgentInfo, resetPassword, applyCash, mailSend, resetPasswordWithoutLogin, getSubUserList}
