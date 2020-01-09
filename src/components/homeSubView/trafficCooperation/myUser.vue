@@ -69,9 +69,9 @@
         <el-dialog
         title="邀请子账户"
         :visible.sync="dialogVisible"
-        width="30%"
+        width="50%"
         :before-close="handleClose">
-        <span>邀请链接：<el-input></el-input> <el-button>复制</el-button></span>
+        <span>邀请链接：<el-input v-model="invite_link"></el-input> <el-button>复制</el-button></span>
         <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="dialogVisible = false">知道啦</el-button>
         </span>
@@ -88,6 +88,7 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
 export default class Login extends Vue  {
     dialogVisible: boolean = false;
     media_name: string = '';
+    invite_link: string = '';
     media_id: number|string = '';
     tableData: [] = [];
     constructor() {
@@ -126,6 +127,7 @@ export default class Login extends Vue  {
     }
     createSubUser() {
         const self: any = this;
+        self.invite_link = `${window.location.origin}/register?inviteCode=${self.tableData.id}`;
         self.dialogVisible = true;
         // self.$router.push({path:'/newMedia'})
     }
