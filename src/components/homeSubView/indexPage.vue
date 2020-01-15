@@ -148,8 +148,9 @@ export default class Login extends Vue  {
     }
     async initUserInfo() {
         const self: any = this;
-        self.userInfo = await self.$storage.get('userInfo')
-        console.log(self.userInfo)
+        // self.userInfo = await self.$storage.get('userInfo')
+        self.userInfo = await self.$store.dispatch("getUserInfo");
+        await self.$storage.set('userInfo', self.userInfo)
     }
 }
 </script>
