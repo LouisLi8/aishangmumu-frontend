@@ -48,7 +48,7 @@
                         <div style="text-align:center;">
                             <p>累计收益</p>
                             <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                               {{userInfo.revenue ? userInfo.revenue.revenue*userInfo.percentage +' 元': '0'}}
+                               {{userInfo.revenue ? userInfo.revenue.revenue*userInfo.percentage*0.01 +' 元': '0'}}
                             </p>
                         </div>
                     </el-col>
