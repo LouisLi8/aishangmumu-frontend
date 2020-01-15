@@ -97,4 +97,14 @@ const mailSend = (params: any) => {
         }
     });
 }
-export {login,register, getUserInfo, updateAgentInfo, resetPassword, applyCash, mailSend, resetPasswordWithoutLogin, getSubUserList}
+const setPercentage = (params: any) => {
+    return new Promise(async (resolve: any, reject: any) => {
+        const res: any = await post(restColection.setPercentage, params);
+        if(res && res.code === 200) {
+            resolve(res.data);
+        } else {
+            reject(res);
+        }
+    });
+}
+export {login,register, getUserInfo, updateAgentInfo, resetPassword, applyCash, mailSend, resetPasswordWithoutLogin, getSubUserList, setPercentage}

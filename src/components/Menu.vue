@@ -24,7 +24,8 @@
                     <span slot="title">流量合作</span>
                 </template>
                 <div class="subMenu">
-                    <el-menu-item index="2-1" @click.native="$router.push({path: '/subUser'})">我的子账号</el-menu-item>
+                    <!-- 不存在pid则为代理 -->
+                    <el-menu-item index="2-1" @click.native="$router.push({path: '/subUser'})" v-if="!userInfo.pid">我的子账号</el-menu-item>
                     <el-menu-item index="2-2"  @click.native="$router.push({path: '/media'})">我的媒体</el-menu-item>
                     <el-menu-item index="2-3" @click.native="$router.push({path: '/adpositiondata'})">我的广告位</el-menu-item>
                 </div>
@@ -46,7 +47,8 @@
                 </template>
                 <div class="subMenu">
                     <el-menu-item index="4-1" @click.native="$router.push({path: '/account/basic'})">账户信息</el-menu-item>
-                    <el-menu-item index="4-2" @click.native="$router.push({path: '/finance'})">财务管理</el-menu-item>
+                    <!-- 不存在pid则为代理 -->
+                    <el-menu-item index="4-2" @click.native="$router.push({path: '/finance'})"  v-if="!userInfo.pid">财务管理</el-menu-item>
                 </div>
             </el-submenu>
             <!-- <el-menu-item index="5">
@@ -69,18 +71,23 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class Login extends Vue  {
+    userInfo: any = {};
     constructor() {
         super();
     }
     created() {
         const self: any = this;
+        self.initUserInfo();
     }
-    
+    async initUserInfo() {
+        const self: any = this;
+        self.userInfo = await self.$storage.get('userInfo')
+    }
     handleOpen(key: any, keyPath: any) {
-      console.log(key, keyPath);
+    //   console.log(key, keyPath);
     }
     handleClose(key: any, keyPath: any) {
-      console.log(key, keyPath);
+    //   console.log(key, keyPath);
     }
 }
 </script>

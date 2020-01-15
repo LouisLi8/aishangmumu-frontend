@@ -144,7 +144,6 @@ export default class Register extends Vue {
         if(flag_h) {
             self.$message.error('是否有媒介联系人必选');return;
         }
-
         // 有媒介联系人，校验信息
         if(self.user.has_media_contact) {
             if(!validate.isPhone(self.user.media_contact_phone)) {
@@ -152,8 +151,11 @@ export default class Register extends Vue {
                 return;
             }
         }
+        if(window.location.href.indexOf('inviteCode') > -1) {
+            const invit_code = window.location.href.split("inviteCode=")[1];
+            self.user.pid = invit_code;
+        }   
         const res: any = await register(self.user);
-        console.log(res);
         self.$message.success("注册成功,请登录！")
         self.goLogin();
     }

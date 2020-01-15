@@ -44,5 +44,9 @@ export default {
       const res = await loginService.applyCash(params).catch((err: any) =>{});
       return res;
     },
+    async setPercentage({ commit }: any, params: any) {
+      const res = await loginService.setPercentage(params).catch((err: any) =>{});
+      return res;
+    },
   }
 }

@@ -5,8 +5,8 @@
             <el-breadcrumb-item :to="{ path: '/media' }">我的子账号</el-breadcrumb-item>
         </el-breadcrumb>
         <el-row style="margin: 30px 0;">
-            <el-col :span="19">
-                媒体名称：
+            <!-- <el-col :span="19"> -->
+                <!-- 媒体名称：
                     <el-input
                         placeholder="请输入名称"
                         style="width:160px;margin-right:20px;"
@@ -20,9 +20,9 @@
                         size="small"
                         v-model="media_id">
                     </el-input>
-                     <el-button size="small" style="margin-left: 20px;" @click="search">搜索</el-button>
-            </el-col>
-            <el-col :span="5" style="text-align:right;cursor:pointer;">
+                     <el-button size="small" style="margin-left: 20px;" @click="search">搜索</el-button> -->
+            <!-- </el-col> -->
+            <el-col :span="5" style="text-align:left;cursor:pointer;">
                 <el-button class="themeBtn" size="small" @click="createSubUser">邀请子账号</el-button>
             </el-col>
         </el-row>
@@ -45,22 +45,17 @@
                             </div>
                         </template>
                     </el-table-column>
-                    
                     <el-table-column prop="" label="操作" >
                         <template slot-scope="scope">
-                            {{scope.email}}
-                            <!-- 待验证可修改 -->
-                            <!-- <div v-if="scope.row.status === 0">
-                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">修改</span>
-                            </div> -->
+                            <!-- 无分成可修改 -->
+                            <div v-if="!scope.row.percentage">
+                                <span style="color: #4a90e2;cursor:pointer;" @click="deal(scope.row)">分成</span>
+                            </div>
                             <!-- 正常可修改 -->
-                            <!-- <div v-if="scope.row.status === 1">
-                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">修改</span>
-                            </div> -->
-                            <!-- 拒绝之后重新提交 -->
-                            <!-- <div v-if="scope.row.status === 2">
-                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">重新提交</span>
-                            </div> -->
+                            <div v-if="scope.row.percentage">
+                                分成：{{scope.row.percentage}} %
+                                <div style="color: #4a90e2;cursor:pointer;" @click="deal(scope.row)">修改</div>
+                            </div>
                         </template>
                     </el-table-column>
                 </el-table>
@@ -70,10 +65,24 @@
         title="邀请子账户"
         :visible.sync="dialogVisible"
         width="50%"
-        :before-close="handleClose">
-        <span>邀请链接：<el-input v-model="invite_link"></el-input> <el-button>复制</el-button></span>
+        >
+        <el-row>
+            <el-col :span="24"><span>邀请链接：<el-input v-model="invite_link" style="width: 80%;"></el-input></span><span @click="handelCopy" style="border: 1px solid #409EFF;padding: 8px 10px;background:#409EFF;color:#fff;cursor:pointer">复制</span></el-col>
+        </el-row>
         <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="dialogVisible = false">知道啦</el-button>
+        </span>
+        </el-dialog>
+        <el-dialog
+        :title="percentageTitle"
+        :visible.sync="dialogPercentageVisible"
+        width="300px"
+        >
+        <el-row>
+            <el-col :span="24"><span>分成比例：<el-input v-model="percentage" style="width: 60%;"></el-input> %</span></el-col>
+        </el-row>
+        <span slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="toSet">确定</el-button>
         </span>
         </el-dialog>
     </div>
@@ -86,9 +95,13 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class Login extends Vue  {
+    dialogPercentageVisible: boolean = false;
     dialogVisible: boolean = false;
     media_name: string = '';
     invite_link: string = '';
+    percentageTitle: string = '';
+    cRow: any = {};
+    percentage: number = 0;
     media_id: number|string = '';
     tableData: [] = [];
     constructor() {
@@ -97,8 +110,40 @@ export default class Login extends Vue  {
     created() {
         const self: any = this;
         self.$store.dispatch("getSubUserList").then((res: any) => {
-            self.tableData = res;
+            self.tableData = res.sub_users;
         });
+    }
+    deal(row: any) {
+        const self: any = this;
+        self.percentageTitle = row.real_name;
+        self.cRow = row;
+        self.percentage = row.percentage || 0;
+        self.dialogPercentageVisible = true;
+    }
+    async toSet() {
+        const self: any = this;
+        const r: any = await self.$store.dispatch("setPercentage", {percentage: +self.percentage, id: self.cRow.id});
+        self.dialogPercentageVisible = false;
+        if(r) {
+            self.$message.success(`子账户${self.cRow.real_name}的分成比例修改成功！`);
+            self.$store.dispatch("getSubUserList").then((res: any) => {
+            self.tableData = res.sub_users;
+        });
+        }
+    }
+    handelCopy() {
+        const self: any = this;
+        let url = this.invite_link;
+        let oInput = document.createElement('input');
+        oInput.value = url;
+        document.body.appendChild(oInput);
+        oInput.select(); // 选择对象;
+        document.execCommand("Copy"); // 执行浏览器复制命令
+        self.$message({
+          message: '复制成功',
+          type: 'success'
+        });
+        oInput.remove()
     }
     statusFormat(val: any) {
         console.log(val)

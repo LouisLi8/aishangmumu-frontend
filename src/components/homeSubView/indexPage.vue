@@ -18,73 +18,115 @@
                 </span>
             </p>
         </div>
-        <div class="card">
-            <el-row v-if="userInfo.revenue">
-                <el-col :span="6">
-                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
-                        <p>昨日预计收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                            {{userInfo.revenue.last_days_revenue ? userInfo.revenue.last_days_revenue+' 元': '0'}}</p>
-                    </div>
-                </el-col>
-                <el-col :span="6">
-                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
-                        <p>近7日收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                             {{userInfo.revenue.last_seven_days_revenue ? userInfo.revenue.last_seven_days_revenue+' 元': '0'}}
-                        </p>
-                    </div>
-                </el-col>
-                <el-col :span="6">
-                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
-                        <p>本月收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                            {{userInfo.revenue.month_revenue ? userInfo.revenue.month_revenue+' 元': '0'}}
-                        </p>
-                    </div>
-                </el-col>
-                <el-col :span="6">
-                    <div style="text-align:center;">
-                        <p>累计收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                            {{userInfo.revenue.revenue ? userInfo.revenue.revenue+' 元': '0'}}
-                        </p>
-                    </div>
-                </el-col>
-            </el-row>
-            <el-row v-else>
-                <el-col :span="6">
-                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
-                        <p>昨日预计收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                            0</p>
-                    </div>
-                </el-col>
-                <el-col :span="6">
-                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
-                        <p>近7日收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                             0
-                        </p>
-                    </div>
-                </el-col>
-                <el-col :span="6">
-                    <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
-                        <p>本月收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                            0
-                        </p>
-                    </div>
-                </el-col>
-                <el-col :span="6">
-                    <div style="text-align:center;">
-                        <p>累计收益</p>
-                        <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
-                            0
-                        </p>
-                    </div>
-                </el-col>
-            </el-row>
+        <div class="card" >
+            <div v-if="userInfo.pid && userInfo.pid > 0">
+                <el-row >
+                    <el-col :span="6">
+                        <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                            <p>昨日预计收1益</p>
+                            <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                               --</p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                            <p>近7日收益</p>
+                            <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                               --
+                            </p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                            <p>本月收益</p>
+                            <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                               --
+                            </p>
+                        </div>
+                    </el-col>
+                    <el-col :span="6">
+                        <div style="text-align:center;">
+                            <p>累计收益</p>
+                            <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                               {{userInfo.revenue ? userInfo.revenue.revenue*userInfo.percentage +' 元': '0'}}
+                            </p>
+                        </div>
+                    </el-col>
+                </el-row>
+            </div>
+            <div v-else>
+                <div v-if="userInfo.revenue">
+                    <el-row>
+                        <el-col :span="6">
+                            <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                                <p>昨日预计收益</p>
+                                <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                                    {{userInfo.revenue.last_days_revenue ? userInfo.revenue.last_days_revenue+' 元': '0'}}</p>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                                <p>近7日收益</p>
+                                <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                                    {{userInfo.revenue.last_seven_days_revenue ? userInfo.revenue.last_seven_days_revenue+' 元': '0'}}
+                                </p>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                                <p>本月收益</p>
+                                <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                                    {{userInfo.revenue.month_revenue ? userInfo.revenue.month_revenue+' 元': '0'}}
+                                </p>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div style="text-align:center;">
+                                <p>累计收益</p>
+                                <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                                    {{userInfo.revenue.revenue ? userInfo.revenue.revenue+' 元': '0'}}
+                                </p>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div>
+                <div v-else>
+                
+                    <el-row >
+                        <el-col :span="6">
+                            <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                                <p>昨日预计收3益{{userInfo}}222</p>
+                                <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                                    0</p>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                                <p>近7日收益</p>
+                                <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                                    0
+                                </p>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
+                                <p>本月收益</p>
+                                <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                                    0
+                                </p>
+                            </div>
+                        </el-col>
+                        <el-col :span="6">
+                            <div style="text-align:center;">
+                                <p>累计收益</p>
+                                <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
+                                    0
+                                </p>
+                            </div>
+                        </el-col>
+                    </el-row>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -107,6 +149,7 @@ export default class Login extends Vue  {
     async initUserInfo() {
         const self: any = this;
         self.userInfo = await self.$storage.get('userInfo')
+        console.log(self.userInfo)
     }
 }
 </script>

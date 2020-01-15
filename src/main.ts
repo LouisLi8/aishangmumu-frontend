@@ -5,7 +5,7 @@ import store from "./store";
 import cache from '@/util/cache';
 import './plugins/element.js';
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  // console.log(to)
   // if (to.matched.some(record => record.meta.requiresAuth)) {
   //     //这里判断用户是否登录，验证本地存储是否有token
   //     if (!localStorage.token) { // 判断当前的token是否存在

@@ -4,8 +4,8 @@
             <el-breadcrumb-item>账户管理</el-breadcrumb-item>
             <el-breadcrumb-item>账户信息</el-breadcrumb-item>
             <el-breadcrumb-item v-if="activeIndex === 0" :to="{ path: '/account/basic' }">基本信息</el-breadcrumb-item>
-            <el-breadcrumb-item v-if="activeIndex === 1" :to="{ path: '/account/accountfinance' }">财务信息</el-breadcrumb-item>
-            <el-breadcrumb-item v-if="activeIndex === 2" :to="{ path: '/account/agent' }">合同信息</el-breadcrumb-item>
+            <el-breadcrumb-item v-if="activeIndex === 1" :to="{ path: '/account/accountfinance' }" >财务信息</el-breadcrumb-item>
+            <el-breadcrumb-item v-if="activeIndex === 2" :to="{ path: '/account/agent' }" >合同信息</el-breadcrumb-item>
         </el-breadcrumb>
         <div>
             <ul>
@@ -25,15 +25,25 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
     }
 })
 export default class Login extends Vue  {
+    userInfo: any = {};
     navData: any =  [
-        {name: '基本信息' ,to:'/account/basic'},
-        {name: '财务信息' ,to:'/account/accountfinance'},
-        {name: '合同信息' ,to:'/account/agent'},
+        {name: '基本信息' ,to:'/account/basic'}
     ];
     activeIndex: number = 0;
+    created() {
+        this.initUserInfo();
+    }
     changeNav(index: number) {
         this.activeIndex = index;
         this.$router.push({path: this.navData[index].to });
+    }
+    async initUserInfo() {
+        const self: any = this;
+        self.userInfo = await self.$storage.get('userInfo');
+        if(!self.userInfo.pid) {
+            self.navData.push({name: '财务信息' ,to:'/account/accountfinance'});
+            self.navData.push({name: '合同信息' ,to:'/account/agent'});
+        }
     }
 }
 </script>

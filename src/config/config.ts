@@ -25,5 +25,6 @@ const restColection = {
     adposition_search: 'api/v1/adposition/search',
     upload: 'api/v1/image/upload',
     getQcode: 'api/v1/qcode/info',
+    setPercentage: 'api/v1/user/updatePercentage'
 }
 export {apiBaseUrl,restColection};
