@@ -67,7 +67,7 @@
         width="50%"
         >
         <el-row>
-            <el-col :span="24"><span>邀请链接：<el-input v-model="invite_link" style="width: 80%;"></el-input></span><span @click="handelCopy" style="border: 1px solid #409EFF;padding: 8px 10px;background:#409EFF;color:#fff;cursor:pointer">复制</span></el-col>
+            <el-col :span="24"><span>邀请链接：<el-input v-model="invite_link" disabled style="width: 75%;"></el-input></span><span @click="handelCopy" style="border: 1px solid #409EFF;padding: 8px 10px;background:#409EFF;color:#fff;cursor:pointer">复制</span></el-col>
         </el-row>
         <span slot="footer" class="dialog-footer">
             <el-button type="primary" @click="dialogVisible = false">知道啦</el-button>
