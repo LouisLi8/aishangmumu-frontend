@@ -23,7 +23,7 @@
                         <el-form-item label="">
                             <el-input v-model="user.password" type="password" placeholder="请输入密码" auto-complete="new-password"></el-input>
                         </el-form-item>
-                        <el-form-item label="账户类型" required>
+                        <el-form-item label="账户类型" required v-if="user.pid > 0">
                              <el-radio-group v-model="user.category">
                                 <el-radio :label="1">直客</el-radio>
                                 <el-radio :label="2">代理商</el-radio>
@@ -75,13 +75,18 @@ export default class Register extends Vue {
         password: '',
         category: 2,
         company_name: '',
+        pid: 0,
         real_name: '',
         phone: '',
         has_media_contact: false,
         media_contact_phone: '',
     };
     created() {
-        // this.$router.push({path: '/homePage'});
+        const self: any = this;
+        if(window.location.href.indexOf('inviteCode') > -1) {
+            const invit_code = window.location.href.split("inviteCode=")[1];
+            self.user.pid = invit_code;
+        }
     }
     async sendSms() {
         const self: any = this;
@@ -151,10 +156,6 @@ export default class Register extends Vue {
                 return;
             }
         }
-        if(window.location.href.indexOf('inviteCode') > -1) {
-            const invit_code = window.location.href.split("inviteCode=")[1];
-            self.user.pid = invit_code;
-        }   
         const res: any = await register(self.user);
         self.$message.success("注册成功,请登录！")
         self.goLogin();
