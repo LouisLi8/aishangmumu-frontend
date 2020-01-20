@@ -101,6 +101,7 @@ export default class Login extends Vue  {
     invite_link: string = '';
     percentageTitle: string = '';
     cRow: any = {};
+    userInfo: any = {};
     percentage: number = 0;
     media_id: number|string = '';
     tableData: [] = [];
@@ -112,6 +113,7 @@ export default class Login extends Vue  {
         self.$store.dispatch("getSubUserList").then((res: any) => {
             self.tableData = res.sub_users;
         });
+        self.initUserInfo();
     }
     deal(row: any) {
         const self: any = this;
@@ -155,6 +157,12 @@ export default class Login extends Vue  {
             params: row
         })
     }
+    async initUserInfo() {
+        const self: any = this;
+        // self.userInfo = await self.$storage.get('userInfo')
+        self.userInfo = await self.$store.dispatch("getUserInfo");
+        await self.$storage.set('userInfo', self.userInfo)
+    }
     search() {
         const self: any = this;
         if(self.media_name || self.media_id ) {
@@ -172,7 +180,7 @@ export default class Login extends Vue  {
     }
     createSubUser() {
         const self: any = this;
-        self.invite_link = `${window.location.origin}/register?inviteCode=${self.tableData.id}`;
+        self.invite_link = `${window.location.origin}/register?inviteCode=${self.userInfo.id}`;
         self.dialogVisible = true;
         // self.$router.push({path:'/newMedia'})
     }
