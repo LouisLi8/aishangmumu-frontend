@@ -232,6 +232,12 @@ export default class NewMedia extends Vue  {
         const fileData: any = await self.$store.dispatch("upload", self.delivery_position);
         if(fileData.url) {
             self.ruleForm.delivery_position = fileData.url;
+            const userInfo: any = await self.$storage.get("userInfo");
+            if(userInfo.pid > 0) {
+                self.ruleForm.pid = userInfo.pid;
+            } else {
+                self.ruleForm.pid = userInfo.id;
+            }
             const res = await self.$store.dispatch("ADPOSITION_CREATE", self.ruleForm);
             console.log(res)
             if(res){

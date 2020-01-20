@@ -78,7 +78,7 @@
                         </template>
                     </el-table-column>
                     <el-table-column prop="" label="操作" >
-                        <template slot-scope="scope">
+                        <template slot-scope="scope" v-if="userInfo.id === scope.row.user_id">
                             <!-- 待验证可修改 -->
                             <div v-if="scope.row.status === 0">
                                 <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">修改</span>
@@ -121,6 +121,7 @@ export default class Login extends Vue  {
     media_id: number|string = '';
     centerDialogVisible: boolean = false;
     tableData: [] = [];
+    userInfo: any = {};
     constructor() {
         super();
     }
@@ -128,6 +129,9 @@ export default class Login extends Vue  {
         const self: any = this;
         self.$store.dispatch("ADPOSITION_LIST").then((res: any) => {
             self.tableData = res;
+        });
+        self.$storage.get("userInfo").then((userInfo: any) => {
+            self.userInfo = userInfo;
         });
     }
     statusFormat(val: any) {

@@ -34,9 +34,15 @@ export default class NewMedia extends Vue  {
     created() {
         const self: any = this;
     }
-    submit() {
+    async submit() {
         const self: any = this;
         self.tempMedia.preference_industry_id = self.tempMedia.preference_industry_id.join(",");
+        const userInfo: any = await self.$storage.get("userInfo");
+        if(userInfo.pid > 0) {
+            self.tempMedia.pid = userInfo.pid;
+        } else {
+            self.tempMedia.pid = userInfo.id;
+        }
         self.$store.dispatch("MEDIA_CREATE", self.tempMedia).then((res: any) => {
             self.$router.replace({path: '/media'});
             self.$store.commit("updateTempMedia", null);
