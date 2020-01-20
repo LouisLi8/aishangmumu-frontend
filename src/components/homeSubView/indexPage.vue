@@ -91,11 +91,10 @@
                     </el-row>
                 </div>
                 <div v-else>
-                
                     <el-row >
                         <el-col :span="6">
                             <div style="text-align:center;border-right: 1px solid rgb(214, 214, 214);">
-                                <p>昨日预计收3益{{userInfo}}222</p>
+                                <p>昨日预计收益</p>
                                 <p style="display: inline-block;height: 40px;font-weight: bold;color: #2B2D32;line-height: 40px;width: 100%;font-size: 20px;">
                                     0</p>
                             </div>
