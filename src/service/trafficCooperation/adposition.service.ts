@@ -44,4 +44,15 @@ const adposition_add = (params: any) => {
         })
     })
 }
-export {adposition_list, ad_revenue_list , adposition_search, adposition_add}
+const AD_Daily = (params: any) => {
+    return new Promise((resolve: any, reject: any) => {
+        post(restColection.AD_Daily, params).then((res: any) => {
+            if(res.code === 200) {
+                resolve(res.data);
+            } else {
+                console.warn(res);
+            }
+        })
+    })
+}
+export {adposition_list, ad_revenue_list , adposition_search, adposition_add, AD_Daily}

@@ -56,16 +56,56 @@
                             ￥ {{scope.row.estimated_revenue}}
                         </template>
                     </el-table-column>
-                    <!-- <el-table-column prop="" label="每日数据" >
+                    <el-table-column label="每日数据" fixed="right">
                         <template slot-scope="scope">
                             <div>
-                                <span style="color: #4a90e2;cursor:pointer;" @click="goNewMedia(scope.row)">查看</span>
+                                <span style="color: #4a90e2;cursor:pointer;" @click="checkDaily(scope.row)">查看</span>
                             </div>
                         </template>
-                    </el-table-column> -->
+                    </el-table-column>
                 </el-table>
             </el-scrollbar>
         </div>
+        <!-- 媒体详情数据 -->
+    <el-dialog :title="cRow.media_name" :visible.sync="dialogFormVisible" width="90%">
+        <el-table :data="dailyData" size="small" style="text-align:center" height="350">
+            <el-table-column prop="" label="媒体ID/名称" fixed width="150px" >
+                    {{cRow.media_name}}
+                    <div >
+                        ID: {{cRow.id}}
+                    </div>
+            </el-table-column>
+            <el-table-column prop="" label="时间" >
+                <template slot-scope="scope">
+                    {{scope.row.time}}
+                    <!-- <div >
+                        {{scope.row.createdAt.split('T')[0]}}
+                    </div> -->
+                </template>
+            </el-table-column>
+            <el-table-column prop="exposure" label="曝光量" sortable></el-table-column>
+            <el-table-column prop="clicks" label="点击量" sortable></el-table-column>
+            <el-table-column prop="click_rate" label="点击率" sortable></el-table-column>
+            <el-table-column prop="cpc" label="CPC" sortable></el-table-column>
+            <el-table-column prop="cpm" label="CPM" sortable></el-table-column>
+            <el-table-column prop="ip_traffic" label="IP访问量" sortable></el-table-column>
+            <el-table-column prop="ad_access_uv" label="广告位访问UV" sortable></el-table-column>
+            <el-table-column prop="earnings_per_uv" label="每UV收益" sortable ></el-table-column>
+            <el-table-column prop="estimated_revenue" label="预计收益" sortable >
+                <template slot-scope="scope">
+                    ￥ {{scope.row.estimated_revenue}}
+                </template>
+            </el-table-column>
+            <!-- <el-table-column prop="" label="操作" >
+                <template slot-scope="scope">
+                <span><el-button size="small" type="info">删除</el-button></span>
+                </template>
+            </el-table-column> -->
+        </el-table>
+        <div slot="footer" class="dialog-footer">
+            <el-button type="primary" @click="dialogFormVisible = fasle">关闭</el-button>
+        </div>
+    </el-dialog>
     </div>
 </template>
 
@@ -79,6 +119,9 @@ export default class Login extends Vue  {
     media_name: string = '';
     media_id: number|string = '';
     tableData: [] = [];
+    dailyData: [] = [];
+    cRow: any = {};
+    dialogFormVisible: boolean = false;
     constructor() {
         super();
     }
@@ -130,6 +173,14 @@ export default class Login extends Vue  {
     createMedia() {
         const self: any = this;
         self.$router.push({path:'/newMedia'})
+    }
+    async checkDaily(row: any) {
+        this.cRow = row;
+        this.dialogFormVisible = true;
+        const params = {
+            media_id: row.id
+        }
+        this.dailyData = await this.$store.dispatch("MEDIA_Daily", params)
     }
 }
 </script>

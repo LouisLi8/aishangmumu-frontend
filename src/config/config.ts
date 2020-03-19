@@ -17,11 +17,13 @@ const restColection = {
     media_list: 'api/v1/media/list',
     media_revenue_list: 'api/v1/mediaRevenueAssemble/list',
     media_add: 'api/v1/media/create',
+    MEDIA_Daily: 'api/v1/mediaRevenueDaily/list',
     media_search: 'api/v1/media/search',
     // 广告位
     adposition_list: 'api/v1/adposition/list',
     ad_revenue_list: 'api/v1/advertisingAssemble/list',
     adposition_add: 'api/v1/adposition/create',
+    AD_Daily: 'api/v1/advertisingDaily/list',
     adposition_search: 'api/v1/adposition/search',
     upload: 'api/v1/image/upload',
     getQcode: 'api/v1/qcode/info',

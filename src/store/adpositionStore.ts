@@ -18,5 +18,8 @@ export default {
         async ADPOSITION_CREATE({ commit }: any, params: any) {
           return await adpositionService.adposition_add(params);
         },
+        async AD_Daily({ commit }: any, params: any) {
+          return await adpositionService.AD_Daily(params);
+        },
       }
 }

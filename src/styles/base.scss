@@ -12,6 +12,12 @@ html, body{
   background-color: #f2f2f2;
   -webkit-font-smoothing: antialiased;
 }
+body .el-table::before {
+  z-index: inherit;
+}
+.el-table__body, .el-table__footer, .el-table__header {
+  border-collapse: collapse;
+}
 .iconfont {
   display: inline-block;
   font-family: "iconfont" !important;

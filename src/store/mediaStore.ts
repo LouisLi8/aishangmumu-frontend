@@ -47,5 +47,8 @@ export default {
         async MEDIA_CREATE({ commit }: any, params: any) {
           return await mediaService.media_add(params);
         },
+        async MEDIA_Daily({ commit }: any, params: any) {
+          return await mediaService.MEDIA_Daily(params);
+        },
       }
 }

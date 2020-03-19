@@ -44,4 +44,15 @@ const media_add = (params: any) => {
         })
     })
 }
-export {media_list,media_revenue_list, media_add, media_search}
+const MEDIA_Daily = (params: any) => {
+    return new Promise((resolve: any, reject: any) => {
+        post(restColection.MEDIA_Daily, params).then((res: any) => {
+            if(res.code === 200) {
+                resolve(res.data);
+            } else {
+                console.warn(res);
+            }
+        })
+    })
+}
+export {media_list,media_revenue_list, media_add, media_search, MEDIA_Daily}
