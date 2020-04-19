@@ -10,7 +10,7 @@
             <div class="info">在正式合作之前，我们需要验证您对于您的网站的所有权，确保您的网站符合我们的合作规范。验证通过后，将便于我们的团队更快完成审核。</div>
             <div class="steps">
                 <p>1.请下载txt文件</p>
-                <p><a class="btn-download ml15" href="http://api.jmaogou.com/public/file/appKey.txt" download="">下载</a></p>
+                <p><a class="btn-download ml15"  href="javascript:;" @click="downAppKey" download="appKey.txt" target="_blank">下载</a></p>
                 <p>2.将其粘贴到您的网站的根目录中；</p>
                 <p><a class="url" :href="tempMedia.website_domain_name + '/appKey.txt'" target="_blank">{{tempMedia.website_domain_name}}</a></p>
                 <p>2.将其粘贴到您的网站的根目录中；</p>
@@ -33,6 +33,31 @@ export default class NewMedia extends Vue  {
     }
     created() {
         const self: any = this;
+    }
+    downAppKey() {
+        const url: string = "http://ssp.jmaogou.com:3000/public/file/appKey.txt";
+        var xmlHttp = null;
+            if (window.ActiveXObject) {
+                // IE6, IE5 浏览器执行代码
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlHttp = new XMLHttpRequest();
+            }
+            //2.如果实例化成功，就调用open（）方法：
+            if (xmlHttp != null) {
+                xmlHttp.open("get", url, true);
+                xmlHttp.send();
+                xmlHttp.onreadystatechange = doResult; //设置回调函数                 
+            }
+            function doResult() {
+                if (xmlHttp.readyState == 4) { //4表示执行完成
+                    if (xmlHttp.status == 200) { //200表示执行成功
+                        //引用js库：http://danml.com/js/download2.js
+                        download(xmlHttp.responseText, "appKey.txt", "text/plain");
+                    }
+                }
+            }
     }
     async submit() {
         const self: any = this;
