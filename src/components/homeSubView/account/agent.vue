@@ -72,7 +72,7 @@ export default class Basic extends Vue  {
     }
     downAppKey() {
         const url: string = "http://ssp.jmaogou.com:3000/public/file/爱尚盟卡合作加盟商业合同.docx";
-        var xmlHttp = null;
+        var xmlHttp: any = null;
             if (window.ActiveXObject) {
                 // IE6, IE5 浏览器执行代码
                 xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");

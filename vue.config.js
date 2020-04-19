@@ -2,6 +2,13 @@
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
 module.exports = {
+  configureWebpack: config => {
+    config.plugins.forEach((item,i)=>{
+            if(item.tsconfig){
+                config.plugins.splice(i,1);
+            }
+        })
+    },
   // outputDir:
   //   process.env.VUE_APP_TITLE === "production"
   //     ? "dist_production"
