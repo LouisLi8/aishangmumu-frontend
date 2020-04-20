@@ -28,7 +28,7 @@
         </el-row> -->
         <div class="list">
             <el-scrollbar style="height: calc(100vh - 155px);">
-                <el-table :data="tableData" size="small" show-summary style="text-align:center" >
+                <el-table :data="tableData" size="small" :summary-method="getSummaries" show-summary style="text-align:center" >
                     <!-- <el-table-column prop="" label="" fixed >
                         总计
                     </el-table-column> -->
@@ -68,7 +68,7 @@
         </div>
         <!-- 媒体详情数据 -->
     <el-dialog :title="cRow.media_name" :visible.sync="dialogFormVisible" width="90%">
-        <el-table :data="dailyData" size="small" style="text-align:center" height="350">
+        <el-table :data="dailyData" size="small" style="text-align:center"  :summary-method="getSummaries10" show-summary>
             <el-table-column prop="" label="媒体ID/名称" fixed width="150px" >
                     {{cRow.media_name}}
                     <div >
@@ -103,7 +103,7 @@
             </el-table-column> -->
         </el-table>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="dialogFormVisible = fasle">关闭</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
         </div>
     </el-dialog>
     </div>
@@ -121,6 +121,7 @@ export default class Login extends Vue  {
     tableData: [] = [];
     dailyData: [] = [];
     cRow: any = {};
+    percentage: any = '';
     dialogFormVisible: boolean = false;
     constructor() {
         super();
@@ -128,11 +129,76 @@ export default class Login extends Vue  {
     created() {
         const self: any = this;
         self.tableData = [];
+        self.$storage.get("userInfo").then((store: any) => {
+            self.percentage = store.percentage || 100
+        });
         self.$store.dispatch("MEDIA_LIST").then((res: any) => {
             res.map((media: any) => {
                 if(media.revenue) self.tableData.push(media.revenue)
             })
         });
+    }
+    getSummaries(param: any) {
+        const _this: any = this;
+        const { columns, data } = param;
+        const sums: any = [];
+        columns.forEach((column: any, index: any) => {
+          if (index === 0) {
+            sums[index] = '合计';
+            return;
+          }
+          if (index !== 5) {
+            sums[index] = '';
+            return;
+          }
+          const values = data.map((item: any) => Number(item[column.property]));
+          if (!values.every((value: any) => isNaN(value))) {
+            sums[index] = values.reduce((prev: any, curr: any) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] = (sums[index] * _this.percentage * 0.01).toFixed(2);
+            sums[index] = '￥ ' + sums[index];
+          } else {
+            sums[index] = 'N/A';
+          }
+        });
+        return sums ;
+    }
+    getSummaries10(param: any) {
+        const _this: any = this;
+        const { columns, data } = param;
+        const sums: any = [];
+        columns.forEach((column: any, index: any) => {
+          if (index === 0) {
+            sums[index] = '合计';
+            return;
+          }
+          if (index < 10) {
+            sums[index] = '';
+            return;
+          }
+          const values = data.map((item: any) => Number(item[column.property]));
+          if (!values.every((value: any) => isNaN(value))) {
+            sums[index] = values.reduce((prev: any, curr: any) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] = (sums[index] * _this.percentage * 0.01).toFixed(2);
+            sums[index] = '￥ ' + sums[index];
+          } else {
+            sums[index] = 'N/A';
+          }
+        });
+        return sums ;
     }
     arraySpanMethod({ row, column, rowIndex, columnIndex } : any) {
         if (rowIndex === 0) {

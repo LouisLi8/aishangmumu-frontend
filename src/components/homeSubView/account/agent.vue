@@ -2,10 +2,12 @@
     <div class="agentWrap">
         <el-scrollbar style="height:calc(100vh - 50px);">
             <div style="padding: 30px 0;margin: -6px 40px 40px 40px;border-bottom: 1px dashed #EAEBED;margin-bottom: 22px;">
-                <span class="com_name">签约主体：苏州爱尚沐沐网络科技有限公司</span> <span class="status">未签署</span>
+                <span class="com_name">签约主体：苏州爱尚沐沐网络科技有限公司</span> <span class="status">
+                    {{userInfo.agent_is_sign ? ' 已签署' : '未签署'}}
+                </span>
                 <br/>
                 <!-- <el-button >查看合同规范</el-button> -->
-                <a class="btn-download" href="http://ssp.jmaogou.com:3000/public/file/爱尚盟卡合作加盟商业合同.docx" download="">下载合同</a>
+                <a class="btn-download" href="javascript:;" @click="downAppKey" download="">下载合同</a>
                 <ul class="contract-wrap-text">
                     <li>重要提示：</li>
                     <li>1.为保证结算效率，请尽快签署合同，我司收到贵司盖章的合同并确认无误后，贵司才能将收益提现；</li>
@@ -68,6 +70,31 @@ export default class Basic extends Vue  {
     mounted() {
         this.initUserInfo(); 
     }
+    downAppKey() {
+        const url: string = "http://ssp.jmaogou.com:3000/public/file/爱尚盟卡合作加盟商业合同.docx";
+        var xmlHttp: any = null;
+            if (window.ActiveXObject) {
+                // IE6, IE5 浏览器执行代码
+                xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+            } else if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                xmlHttp = new XMLHttpRequest();
+            }
+            //2.如果实例化成功，就调用open（）方法：
+            if (xmlHttp != null) {
+                xmlHttp.open("get", url, true);
+                xmlHttp.send();
+                xmlHttp.onreadystatechange = doResult; //设置回调函数                 
+            }
+            function doResult() {
+                if (xmlHttp.readyState == 4) { //4表示执行完成
+                    if (xmlHttp.status == 200) { //200表示执行成功
+                        //引用js库：http://danml.com/js/download2.js
+                        download(xmlHttp.responseText, "爱尚盟卡合作加盟商业合同.docx", "text/plain");
+                    }
+                }
+            }
+    }
     async initUserInfo() {
         const self: any = this;
         self.userInfo = await self.$storage.get('userInfo')
@@ -81,6 +108,7 @@ export default class Basic extends Vue  {
             agent_tel:  self.userInfo.agent_tel,
         });
         if(res) {
+            console.log(res)
             self.userInfo = res;
         }
     }

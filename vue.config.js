@@ -2,6 +2,13 @@
 // const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const productionGzipExtensions = ['js', 'css'];
 module.exports = {
+  configureWebpack: config => {
+    config.plugins.forEach((item,i)=>{
+            if(item.tsconfig){
+                config.plugins.splice(i,1);
+            }
+        })
+    },
   // outputDir:
   //   process.env.VUE_APP_TITLE === "production"
   //     ? "dist_production"
@@ -30,8 +37,8 @@ module.exports = {
     host: '0.0.0.0',
     proxy: {
       "/api/": {
-        // target: "http://api.jmaogou.com", // develop
-        target: "http://127.0.0.1:3000", // local
+        target: "http://ssp.jmaogou.com:3000", // develop
+        // target: "http://127.0.0.1:3000", // local
         ws: true,
         changeOrigin: true,
         pathRewrite: { "^/api/": "/" }

@@ -6,7 +6,7 @@
         </el-breadcrumb>
         <div class="list">
             <el-scrollbar style="height: calc(100vh - 155px);">
-                <el-table :data="tableData" size="small" style="text-align:center" show-summary>
+                <el-table :data="tableData" size="small" style="text-align:center" :summary-method="getSummaries" show-summary>
                     <el-table-column prop="" label="媒体ID/名称" fixed >
                         <template slot-scope="scope">
                             {{scope.row.media_name}}
@@ -28,7 +28,7 @@
                     <el-table-column prop="earnings_per_uv" label="每UV收益" sortable fixed="right"></el-table-column>
                     <el-table-column prop="estimated_revenue" label="预计收益" sortable fixed="right">
                         <template slot-scope="scope">
-                            ￥ {{scope.row.estimated_revenue}}
+                            ￥ {{countPercentage(scope.row.estimated_revenue)}}
                         </template>
                     </el-table-column>
                     <el-table-column label="每日数据" fixed="right">
@@ -43,7 +43,7 @@
         </div>
           <!-- 媒体详情数据 -->
     <el-dialog :title="cRow.media_name" :visible.sync="dialogFormVisible" width="90%">
-        <el-table :data="dailyData" size="small" style="text-align:center" height="350">
+        <el-table :data="dailyData" size="small" style="text-align:center"  :summary-method="getSummaries10" show-summary>
             <el-table-column prop="" label="广告ID/名称" fixed width="150px" >
                     {{cRow.media_name}}
                     <div >
@@ -68,12 +68,12 @@
             <el-table-column prop="earnings_per_uv" label="每UV收益" sortable ></el-table-column>
             <el-table-column prop="estimated_revenue" label="预计收益" sortable >
                 <template slot-scope="scope">
-                    ￥ {{scope.row.estimated_revenue}}
+                    ￥ {{countPercentage(scope.row.estimated_revenue)}}
                 </template>
             </el-table-column>
         </el-table>
         <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="dialogFormVisible = fasle">关闭</el-button>
+            <el-button type="primary" @click="dialogFormVisible = false">关闭</el-button>
         </div>
     </el-dialog>
     </div>
@@ -88,6 +88,7 @@ import { Component, Prop, Emit, Vue } from "vue-property-decorator";
 export default class Login extends Vue  {
     media_name: string = '';
     media_id: number|string = '';
+    percentage: any = '';
     tableData: [] = [];
     dailyData: [] = [];
     cRow: any = {};
@@ -97,6 +98,9 @@ export default class Login extends Vue  {
     }
     created() {
         const self: any = this;
+        self.$storage.get("userInfo").then((store: any) => {
+            self.percentage = store.percentage || 100
+        });
         self.tableData = [];
         self.$store.dispatch("ADPOSITION_LIST").then((res: any) => {
             res.map((media: any) => {
@@ -106,6 +110,72 @@ export default class Login extends Vue  {
         // self.$store.dispatch("ad_revenue_list").then((res: any) => {
         //     self.tableData = res;
         // });
+    }
+    getSummaries(param: any) {
+        const _this: any = this;
+        const { columns, data } = param;
+        const sums: any = [];
+        columns.forEach((column: any, index: any) => {
+          if (index === 0) {
+            sums[index] = '合计';
+            return;
+          }
+          if (index !== 5) {
+            sums[index] = '';
+            return;
+          }
+          const values = data.map((item: any) => Number(item[column.property]));
+          if (!values.every((value: any) => isNaN(value))) {
+            sums[index] = values.reduce((prev: any, curr: any) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] = (sums[index] * _this.percentage * 0.01).toFixed(2);
+            sums[index] = '￥ ' + sums[index];
+          } else {
+            sums[index] = 'N/A';
+          }
+        });
+        return sums ;
+    }
+    getSummaries10(param: any) {
+        const _this: any = this;
+        const { columns, data } = param;
+        const sums: any = [];
+        columns.forEach((column: any, index: any) => {
+          if (index === 0) {
+            sums[index] = '合计';
+            return;
+          }
+          if (index < 10) {
+            sums[index] = '';
+            return;
+          }
+          const values = data.map((item: any) => Number(item[column.property]));
+          if (!values.every((value: any) => isNaN(value))) {
+            sums[index] = values.reduce((prev: any, curr: any) => {
+              const value = Number(curr);
+              if (!isNaN(value)) {
+                return prev + curr;
+              } else {
+                return prev;
+              }
+            }, 0);
+            sums[index] = (sums[index] * _this.percentage * 0.01).toFixed(2);
+            sums[index] = '￥ ' + sums[index];
+          } else {
+            sums[index] = 'N/A';
+          }
+        });
+        return sums ;
+    }
+    countPercentage(data: any) {
+        data = data * this.percentage * 0.01;
+        return data;
     }
     statusFormat(val: any) {
         console.log(val)
