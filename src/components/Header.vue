@@ -42,7 +42,7 @@
                                 </ul>
                                 <p></p>
                             </div>
-                            <span slot="reference" style="cursor:pointer">商务</span>
+                            <span slot="reference" style="cursor:pointer">商务对接</span>
                         </el-popover>
                         <span class="down-menu-splic" >|</span>
                         <el-popover
